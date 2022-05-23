@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import React, { useState } from "react";
 import styles from "../../styles/Auth.module.css";
-import { login } from "../../redux/actions/auth";
+import { register } from "../../redux/actions/auth";
 import { createToast } from "../../utils/createToast";
 
 const Login = () => {
@@ -11,8 +11,11 @@ const Login = () => {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
+    name: "",
     email: "",
+    phone: "",
     password: "",
+    passwordConfirm: "",
   });
 
   const onInputChange = (e) => {
@@ -25,16 +28,18 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.email || !form.password) {
+    if (!form.name || !form.email || !form.phone || !form.password) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
+    } else if (form.password !== form.passwordConfirm) {
+      setErrors([{ msg: "Password & Password Confirm not same" }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
-      const loginStatus = await login(form, setErrors);
-      if (loginStatus) {
-        createToast("Login Success", "success");
-        router.push("/");
+      const registerStatus = await register(form, setErrors);
+      if (registerStatus) {
+        createToast("Register Success, Please Activate Your Account Through Link From Email", "success");
+        router.push("/login");
       }
 
       setIsLoading(false);
@@ -44,8 +49,8 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>GoHired - Login</title>
-        <meta name="description" content="Login page for GoHired" />
+        <title>GoHired - Register</title>
+        <meta name="description" content="Register page for GoHired" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -63,16 +68,30 @@ const Login = () => {
               </h1>
             </div>
           </div>
-          <div className={`${styles.auth} ${styles.login} col-sm-7 col-md-6`}>
+          <div className={`${styles.auth} ${styles.register} col-sm-7 col-md-6`}>
             <div className={styles.content}>
               <div className="d-sm-none text-center mb-5">
                 <p>GoHired</p>
               </div>
               <h1 className="fs-4 fw-bold mb-3">Hello, Pewpeople</h1>
               <h2 className="fs-6 text-secondary mb-4">
-                Login ke akun anda yang telah terdaftar
+                Mulai daftar akun baru anda sekarang
               </h2>
               <form onSubmit={onSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    * Nama
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm p-3"
+                    id="name"
+                    placeholder="Masukkan nama lengkap"
+                    value={form.name}
+                    onChange={onInputChange}
+                    required
+                  />
+                </div>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
                     * E-mail
@@ -88,6 +107,20 @@ const Login = () => {
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="phone" className="form-label">
+                    * No handphone
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control form-control-sm p-3"
+                    id="phone"
+                    placeholder="Masukkan no handphone"
+                    value={form.phone}
+                    onChange={onInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
                   <label htmlFor="password" className="form-label">
                     * Password
                   </label>
@@ -97,6 +130,20 @@ const Login = () => {
                     id="password"
                     placeholder="Masukkan kata sandi"
                     value={form.password}
+                    onChange={onInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="passwordConfirm" className="form-label">
+                    * Konfirmasi kata sandi
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control form-control-sm p-3"
+                    id="passwordConfirm"
+                    placeholder="Masukkan konfirmasi kata sandi"
+                    value={form.passwordConfirm}
                     onChange={onInputChange}
                     required
                   />
@@ -140,10 +187,10 @@ const Login = () => {
                 )}
               </form>
               <p className="text-center text-secondary mt-4">
-                Anda belum punya akun?{" "}
-                <Link href="/auth/register">
+                Anda sudah punya akun?{" "}
+                <Link href="/auth/login">
                   <a className="text-orange text-decoration-none">
-                    Daftar di sini
+                    Masuk di sini
                   </a>
                 </Link>
               </p>
