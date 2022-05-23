@@ -6,7 +6,7 @@ export default async function middleware(req) {
 
   // ketika belum login
   if (!token) {
-    if (pathname !== "/auth/login" && pathname !== "/auth/register"){
+    if (pathname !== "/auth/login" && pathname !== "/auth/register" && pathname !== "/"){
       return NextResponse.redirect(`${origin}/auth/login`);
     }
   }

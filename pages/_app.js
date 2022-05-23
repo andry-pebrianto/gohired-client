@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import { getCookie } from "cookies-next";
 import Layout1 from "../layouts/layout1";
 
 const layouts = {
@@ -24,7 +25,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <ToastContainer />
-      <Layout>
+      <Layout token={getCookie("token")} id={getCookie("id")}>
         <Component {...pageProps} />
       </Layout>
     </>
