@@ -1,13 +1,13 @@
 import React from "react";
-import Footer from "../components/organisms/Footer";
 import Navbar from "../components/organisms/Navbar";
+// import Footer from "../components/organisms/Footer";
 
-export default function Layout1({ token, id, children }) {
+export default function Layout1({ token, slug, children }) {
   return (
     <>
-      <Navbar token={token} id={id} />
+      <Navbar token={token} slug={slug} />
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

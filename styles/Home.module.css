@@ -1,0 +1,29 @@
+.top {
+  background-color: #5E50A1;
+  color: #fff;
+}
+
+.worker {
+  border-radius: 7px;
+  border: 1px solid gray;
+}
+
+.worker .title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.worker .picture {
+  object-fit: cover;
+}
+
+.worker .skill {
+  background-color: #FBB01799;
+  padding: 3px 6px 3px 6px;
+  color: rgb(39, 39, 39);
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #FBB017;
+  display: inline-block;
+  border-radius: 2px;
+}

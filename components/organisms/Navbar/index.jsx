@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 
-export default function Navbar({ token = null, id = null }) {
+export default function Navbar({ token = null, slug = null }) {
   const [Nav, setNav] = useState(
     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
       <li className="nav-item mx-1 my-1">
@@ -23,14 +23,14 @@ export default function Navbar({ token = null, id = null }) {
       setNav(
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
           <li className="nav-item mx-1 my-1">
-            <Link href={`/profile/${id}`}>
+            <Link href={`/profile/${slug}`}>
               <a className={`nav-link`}>Profile Saya</a>
             </Link>
           </li>
         </ul>
       );
     }
-  }, [id, token]);
+  }, [slug, token]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent p-3">
