@@ -3,7 +3,7 @@ import React from "react";
 const Landing = () => {
   return (
     <div>
-      <h1>Landing</h1>
+      <h1 className="text-center mt-5">Landing Page</h1>
     </div>
   );
 };

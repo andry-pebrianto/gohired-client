@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import styles from "../../../styles/Profile.module.css";
-import { editProfile } from "../../../redux/actions/user";
+import { editProfile, editPhoto } from "../../../redux/actions/user";
 import { createToast } from "../../../utils/createToast";
 
 export async function getServerSideProps(context) {
@@ -57,13 +57,17 @@ const Edit = ({ data, token }) => {
     linkedin: data.linkein || "",
     skills: data.skills.join(",") || "",
   });
+  const [photo, setPhoto] = useState(null);
 
   const onInputChange = (e) => {
-    console.log(form);
     setForm({
       ...form,
       [e.target.id]: e.target.value,
     });
+  };
+
+  const photoChangeHandler = (e) => {
+    setPhoto(e.target.files[0]);
   };
 
   const onSubmit = async () => {
@@ -85,12 +89,38 @@ const Edit = ({ data, token }) => {
     }
 
     setIsLoading(false);
+    document.getElementById("close").click();
+  };
+
+  const onSubmitPhoto = async () => {
+    document.getElementById("close").click();
+
+    const formData = new FormData();
+    if (photo) {
+      formData.append("photo", photo);
+    }
+
+    setErrors([]);
+    setIsLoading(true);
+
+    const editPhotoStatus = await editPhoto(
+      data.slug,
+      token,
+      formData,
+      setErrors
+    );
+    if (editPhotoStatus) {
+      createToast("Edit Photo Success", "success");
+      router.push(`/profile/${data.slug}`);
+    }
+
+    setIsLoading(false);
   };
 
   return (
     <>
       <Head>
-        <title>GoHired - Profile</title>
+        <title>GoHired - Edit Profile</title>
         <meta name="description" content="Home page contains list worker" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -124,6 +154,68 @@ const Edit = ({ data, token }) => {
                       />
                     )}
                   </div>
+
+                  <div className="d-flex justify-content-center mt-3">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Change Photo
+                    </button>
+                  </div>
+
+                  <div
+                    className="modal fade"
+                    id="exampleModal"
+                    tabIndex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">
+                            Change Photo Profile
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          <form>
+                            <input
+                              type="file"
+                              className="form-control"
+                              onChange={photoChangeHandler}
+                            />
+                          </form>
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            id="close"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button
+                            type="button"
+                            onClick={onSubmitPhoto}
+                            className="btn btn-primary"
+                          >
+                            Save changes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <h5 className="mt-3">{data.name}</h5>
                   {data.address && (
                     <div className="text-secondary">
