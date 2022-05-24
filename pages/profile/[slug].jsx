@@ -32,6 +32,7 @@ export async function getServerSideProps(context) {
         data: res.data.data,
         error: false,
         errorMessage: null,
+        slug: context.req.cookies.slug || null,
       },
     };
   } catch (error) {
@@ -40,12 +41,13 @@ export async function getServerSideProps(context) {
         data: null,
         error: true,
         errorMessage: error.message,
+        slug: context.req.cookies.slug || null,
       },
     };
   }
 }
 
-const Profile = ({ data }) => {
+const Profile = ({ data, slug }) => {
   console.log(data);
   const router = useRouter();
   const [isPorto, setisPorto] = useState(true);
@@ -118,14 +120,16 @@ const Profile = ({ data }) => {
                       <small>{data.description}</small>
                     </div>
                   )}
-                  <Link href={`/profile/edit/${data.slug}`}>
-                    <a
-                      className="btn mt-4 my-2 text-white w-100"
-                      style={{ backgroundColor: "#5E50A1" }}
-                    >
-                      Edit Profile
-                    </a>
-                  </Link>
+                  {slug === data.slug && (
+                    <Link href={`/profile/edit/${data.slug}`}>
+                      <a
+                        className="btn mt-4 my-2 text-white w-100"
+                        style={{ backgroundColor: "#5E50A1" }}
+                      >
+                        Edit Profile
+                      </a>
+                    </Link>
+                  )}
                   <h5 className="mt-3">Skills</h5>
                   <div className="my-2">
                     {data.skills && (
