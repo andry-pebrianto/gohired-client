@@ -6,7 +6,7 @@ import styles from "../../styles/Auth.module.css";
 import { register } from "../../redux/actions/auth";
 import { createToast } from "../../utils/createToast";
 
-const Login = () => {
+const Register = () => {
   const router = useRouter();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -182,7 +182,7 @@ const Login = () => {
                     className="btn w-100 text-light mb-2"
                     style={{ backgroundColor: "#FBB017" }}
                   >
-                    Log in
+                    Register
                   </button>
                 )}
               </form>
@@ -203,4 +203,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

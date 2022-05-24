@@ -192,7 +192,7 @@ const Profile = ({ data, slug }) => {
                   <hr />
                   {isPorto ? (
                     <>
-                      <div className="row row-cols-1 row-cols-md-3 g-4">
+                      <div className="row row-cols-1 row-cols-md-3 g-4 mb-4">
                         {data.projects.map((project) => (
                           <div key={project.id} className="col">
                             <div className="card">

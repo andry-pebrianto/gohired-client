@@ -55,7 +55,7 @@ const Edit = ({ data, token }) => {
     instagram: data.instagram || "",
     github: data.github || "",
     linkedin: data.linkein || "",
-    skills: data.skills.join(",") || "",
+    skills: data.skills ? data.skills.join(",") : "",
   });
   const [photo, setPhoto] = useState(null);
 
@@ -79,7 +79,7 @@ const Edit = ({ data, token }) => {
       token,
       {
         ...form,
-        skills: form.skills.trim().split(","),
+        skills: form.skills ? form.skills.trim().split(",") : null,
       },
       setErrors
     );
