@@ -25,3 +25,7 @@
   display: inline-block;
   border-radius: 2px;
 }
+
+.tab:hover {
+  cursor: pointer;
+}

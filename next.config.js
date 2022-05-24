@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['gohired.herokuapp.com', 'images227.netlify.app', 'drive.google.com']
+    domains: ['gohired.herokuapp.com', 'images227.netlify.app', 'drive.google.com', 'ankasa-ticket.herokuapp.com']
   }
 }
 
