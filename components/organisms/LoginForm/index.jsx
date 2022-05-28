@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "../../../styles/Auth.module.css";
 import Logo from "../../../public/img/logo.png";
+import PasswordInput from "../../atoms/PasswordInput";
 
 export default function LoginForm({
   form,
@@ -41,20 +42,12 @@ export default function LoginForm({
               required
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              * Password
-            </label>
-            <input
-              type="password"
-              className="form-control form-control-sm p-3"
-              id="password"
-              placeholder="Masukkan kata sandi"
-              value={form.password}
-              onChange={onInputChange}
-              required
-            />
-          </div>
+          <PasswordInput
+            password={form.password}
+            setPassword={onInputChange}
+            id="password"
+            placeholder="Kata sandi"
+          />
           <div className="d-flex justify-content-end mb-3">
             <a className="link-secondary text-decoration-none" href="#">
               Lupa kata sandi?
