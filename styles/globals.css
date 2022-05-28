@@ -15,13 +15,17 @@ body {
 }
 
 .bg-orange {
-  background-color: #FBB017;
+  background-color: #FBB017 !important;
 }
 
 .bg-purple {
-  background-color: #5E50A1;
+  background-color: #5E50A1 !important;
 }
 
 .text-orange {
-  color: #FBB017;
+  color: #FBB017 !important;
+}
+
+.text-purple {
+  color: #5E50A1 !important;
 }

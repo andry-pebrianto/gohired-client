@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
+import { wrapper } from "../redux/store";
 import Layout1 from "../layouts/layout1";
 
 const layouts = {
@@ -32,4 +33,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

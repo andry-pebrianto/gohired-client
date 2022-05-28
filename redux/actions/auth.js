@@ -8,7 +8,7 @@ export const login = async (data, setErrors) => {
     );
 
     document.cookie = `token=${res.data.token.jwt};path=/`;
-    document.cookie = `slug=${res.data.token.slug};path=/`;
+    document.cookie = `id=${res.data.token.id};path=/`;
 
     return true;
   } catch (error) {

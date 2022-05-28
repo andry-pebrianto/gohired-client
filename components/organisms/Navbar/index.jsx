@@ -59,7 +59,7 @@ export default function Navbar({ token = null, id = null }) {
             </Link>
           </li>
           <li className="nav-item mx-1 my-1">
-            <button className="btn nav-link" onClick={logout}>
+            <button className="btn bg-purple text-white nav-link" onClick={logout}>
               Keluar
             </button>
           </li>
