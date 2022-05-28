@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <ToastContainer />
-      <Layout token={getCookie("token")} slug={getCookie("slug")}>
+      <Layout token={getCookie("token")} id={getCookie("id")}>
         <Component {...pageProps} />
       </Layout>
     </>

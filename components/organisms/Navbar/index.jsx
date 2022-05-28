@@ -4,7 +4,7 @@ import Link from "next/link";
 import Swal from "sweetalert2";
 import styles from "./Navbar.module.css";
 
-export default function Navbar({ token = null, slug = null }) {
+export default function Navbar({ token = null, id = null }) {
   const router = useRouter();
 
   const [Nav, setNav] = useState(
@@ -37,7 +37,7 @@ export default function Navbar({ token = null, slug = null }) {
           document.cookie =
             "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
           document.cookie =
-            "slug=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            "id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
           router.push("/auth/login");
         }
 
@@ -54,7 +54,7 @@ export default function Navbar({ token = null, slug = null }) {
             </Link>
           </li>
           <li className="nav-item mx-1 my-1">
-            <Link href={`/profile/${slug}`}>
+            <Link href={`/profile/${id}`}>
               <a className={`nav-link`}>Profile Saya</a>
             </Link>
           </li>
@@ -66,7 +66,7 @@ export default function Navbar({ token = null, slug = null }) {
         </ul>
       );
     }
-  }, [router, slug, token]);
+  }, [router, id, token]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent p-3">
