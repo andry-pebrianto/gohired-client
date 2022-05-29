@@ -49,9 +49,11 @@ export default function LoginForm({
             placeholder="Kata sandi"
           />
           <div className="d-flex justify-content-end mb-3">
-            <a className="link-secondary text-decoration-none" href="#">
-              Lupa kata sandi?
-            </a>
+            <Link href="/auth/forgot">
+              <a className="text-secondary">
+                Lupa kata sandi?
+              </a>
+            </Link>
           </div>
           {errors.length > 0 && (
             <div className="alert alert-danger mx-0 py-2">

@@ -3,9 +3,8 @@ import React from "react";
 import Image from "next/image";
 import styles from "../../../styles/Auth.module.css";
 import Logo from "../../../public/img/logo.png";
-import PasswordInput from "../../atoms/PasswordInput";
 
-export default function RegisterForm({
+export default function ForgotForm({
   form,
   onInputChange,
   onSubmit,
@@ -13,7 +12,7 @@ export default function RegisterForm({
   errors,
 }) {
   return (
-    <div className={`${styles.auth} ${styles.register} col-sm-7 col-md-6`}>
+    <div className={`${styles.auth} ${styles.login} col-sm-7 col-md-6`}>
       <div className={styles.content}>
         <div className="d-sm-none text-center mb-5">
           <div className="d-flex justify-content-center align-items-center">
@@ -25,23 +24,9 @@ export default function RegisterForm({
         </div>
         <h1 className="fs-4 fw-bold mb-3">Hello, Pewpeople</h1>
         <h2 className="fs-6 text-secondary mb-4">
-          Mulai daftar akun baru anda sekarang
+          Masukkan email untuk mereset kata sandi anda
         </h2>
         <form onSubmit={onSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              * Nama
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-sm p-3"
-              id="name"
-              placeholder="Masukkan nama lengkap"
-              value={form.name}
-              onChange={onInputChange}
-              required
-            />
-          </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               * E-mail
@@ -56,32 +41,6 @@ export default function RegisterForm({
               required
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="phone" className="form-label">
-              * No handphone
-            </label>
-            <input
-              type="number"
-              className="form-control form-control-sm p-3"
-              id="phone"
-              placeholder="Masukkan no handphone"
-              value={form.phone}
-              onChange={onInputChange}
-              required
-            />
-          </div>
-          <PasswordInput
-            password={form.password}
-            setPassword={onInputChange}
-            id="password"
-            placeholder="Kata sandi"
-          />
-          <PasswordInput
-            password={form.passwordConfirm}
-            setPassword={onInputChange}
-            id="passwordConfirm"
-            placeholder="Konfirmasi kata sandi"
-          />
           {errors.length > 0 && (
             <div className="alert alert-danger mx-0 py-2">
               <ul className="m-0">
@@ -111,12 +70,12 @@ export default function RegisterForm({
               className="btn w-100 text-light mb-2"
               style={{ backgroundColor: "#FBB017" }}
             >
-              Register
+              Submit
             </button>
           )}
         </form>
         <p className="text-center text-secondary mt-4">
-          Anda sudah punya akun?{" "}
+          Ingat kata sandi?{" "}
           <Link href="/auth/login">
             <a className="text-orange text-decoration-none">Masuk di sini</a>
           </Link>

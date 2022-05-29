@@ -6,14 +6,19 @@ export default async function middleware(req) {
 
   // ketika belum login
   if (!token) {
-    if (pathname !== "/auth/login" && pathname !== "/auth/register" && pathname !== "/"){
+    if (
+      pathname !== "/auth/login" &&
+      pathname !== "/auth/register" &&
+      pathname !== "/auth/forgot" &&
+      pathname !== "/"
+    ) {
       return NextResponse.redirect(`${origin}/auth/login`);
     }
   }
 
   // ketika sudah login
   if (token) {
-    if (pathname === "/auth/login" || pathname === "/auth/register"){
+    if (pathname === "/auth/login" || pathname === "/auth/register" || pathname !== "/auth/forgot") {
       return NextResponse.redirect(`${origin}/`);
     }
   }
