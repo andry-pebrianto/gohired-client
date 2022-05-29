@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
+import NextNProgress from "nextjs-progressbar";
 import { wrapper } from "../redux/store";
 import Layout1 from "../layouts/layout1";
 
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <NextNProgress color="#5E50A1" />
       <ToastContainer />
       <Layout token={getCookie("token")} id={getCookie("id")}>
         <Component {...pageProps} />

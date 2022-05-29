@@ -5,11 +5,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaRegBuilding } from "react-icons/fa";
 import { wrapper } from "../../redux/store";
 import {
-  GET_LIST_WORKER_SUCCESS,
-  GET_LIST_WORKER_FAILED,
+  GET_LIST_RECRUITER_SUCCESS,
+  GET_LIST_RECRUITER_FAILED,
 } from "../../redux/actions/types";
 import Pagination from "../../components/molecules/Pagination";
 import styles from "../../styles/Home.module.css";
@@ -18,7 +18,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     // get api and save to redux during ssr
     try {
-      let url = `${process.env.NEXT_PUBLIC_API_URL}/user/worker?`;
+      let url = `${process.env.NEXT_PUBLIC_API_URL}/user/recruiter?`;
 
       // set search query if exist
       if (context.query.search) {
@@ -42,12 +42,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
       });
 
       store.dispatch({
-        type: GET_LIST_WORKER_SUCCESS,
+        type: GET_LIST_RECRUITER_SUCCESS,
         payload: response.data,
       });
     } catch (error) {
       store.dispatch({
-        type: GET_LIST_WORKER_FAILED,
+        type: GET_LIST_RECRUITER_FAILED,
         payload: error.message,
       });
     }
@@ -60,9 +60,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-const ListWorker = () => {
+const ListRecruiter = () => {
   const router = useRouter();
-  const { listWorker } = useSelector((state) => state);
+  const { listRecruiter } = useSelector((state) => state);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortQuery, setSortQuery] = useState("");
 
@@ -86,7 +86,7 @@ const ListWorker = () => {
   }, [sortQuery]);
 
   const applyFilter = (page = "") => {
-    let url = "/home/worker?";
+    let url = "/home/recruiter?";
     if (searchQuery) {
       url += `&search=${searchQuery}`;
     }
@@ -109,8 +109,8 @@ const ListWorker = () => {
   return (
     <>
       <Head>
-        <title>GoHired - List Worker</title>
-        <meta name="description" content="List Worker page" />
+        <title>GoHired - List Recruiter</title>
+        <meta name="description" content="List Recruiter page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.top}>
@@ -123,7 +123,7 @@ const ListWorker = () => {
           <input
             className="form-control p-2 me-2"
             type="search"
-            placeholder="Cari berdasarkan nama, skill, job desk, address"
+            placeholder="Cari berdasarkan nama, posisi, company, address"
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
           />
@@ -144,13 +144,13 @@ const ListWorker = () => {
           </button>
         </form>
         <div className="mt-5 bg-white">
-          {!listWorker.isError ? (
+          {!listRecruiter.isError ? (
             <>
-              {!listWorker.empty ? (
+              {!listRecruiter.empty ? (
                 <>
-                  {listWorker.data.map((worker) => (
+                  {listRecruiter.data.map((recruiter) => (
                     <div
-                      key={worker.id}
+                      key={recruiter.id}
                       className={`${styles.worker} row p-3 mb-2 mx-3 mx-md-0`}
                     >
                       <div className="col-12 col-sm-6 col-md-9">
@@ -163,9 +163,9 @@ const ListWorker = () => {
                                 width: 120,
                               }}
                             >
-                              {worker.photo ? (
+                              {recruiter.photo ? (
                                 <Image
-                                  src={`https://drive.google.com/uc?export=view&id=${worker.photo}`}
+                                  src={`https://drive.google.com/uc?export=view&id=${recruiter.photo}`}
                                   className="rounded-circle"
                                   layout="fill"
                                   alt="Gambar Profile"
@@ -184,33 +184,22 @@ const ListWorker = () => {
                             <div className="d-flex align-items-center h-100">
                               <div>
                                 <div className={styles.title}>
-                                  {worker.name}
+                                  {recruiter.name}
                                 </div>
-                                {worker.job_desk && (
+                                {recruiter.position && (
                                   <small className="text-secondary">
-                                    {worker.job_desk}
+                                    {recruiter.position}
                                   </small>
                                 )}
-                                {worker.address && (
+                                {recruiter.address && (
                                   <div className="text-secondary">
                                     <small>
-                                      <FaMapMarkerAlt /> {worker.address}
+                                      <FaMapMarkerAlt /> {recruiter.address}
                                     </small>
                                   </div>
                                 )}
                                 <div className="mt-2">
-                                  {worker.skills && (
-                                    <>
-                                      {worker.skills.map((skill, index) => (
-                                        <div
-                                          key={worker.id + index}
-                                          className={`${styles.skill} my-1 mx-1`}
-                                        >
-                                          {skill}
-                                        </div>
-                                      ))}
-                                    </>
-                                  )}
+                                  <FaRegBuilding /> {recruiter.company_name}
                                 </div>
                               </div>
                             </div>
@@ -219,7 +208,7 @@ const ListWorker = () => {
                       </div>
                       <div className="col-12 col-sm-6 col-md-3">
                         <div className="d-flex align-items-center justify-content-center h-100">
-                          <Link href={`/profile/${worker.id}`}>
+                          <Link href={`/profile/${recruiter.id}`}>
                             <a className="btn p-2 text-light my-2 bg-purple">
                               Lihat Profile
                             </a>
@@ -234,10 +223,10 @@ const ListWorker = () => {
               )}
             </>
           ) : (
-            <h3>{listWorker.error}</h3>
+            <h3>{listRecruiter.error}</h3>
           )}
           <Pagination
-            pagination={listWorker.pagination}
+            pagination={listRecruiter.pagination}
             applyFilter={applyFilter}
           />
         </div>
@@ -246,6 +235,6 @@ const ListWorker = () => {
   );
 };
 
-ListWorker.layout = "L1";
+ListRecruiter.layout = "L1";
 
-export default ListWorker;
+export default ListRecruiter;

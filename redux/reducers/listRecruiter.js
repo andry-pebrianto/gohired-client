@@ -1,7 +1,7 @@
 import {
-  GET_LIST_WORKER_FAILED,
-  GET_LIST_WORKER_PENDING,
-  GET_LIST_WORKER_SUCCESS,
+  GET_LIST_RECRUITER_FAILED,
+  GET_LIST_RECRUITER_PENDING,
+  GET_LIST_RECRUITER_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -15,9 +15,9 @@ const initialState = {
 
 const listRecipeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_LIST_WORKER_PENDING:
+    case GET_LIST_RECRUITER_PENDING:
       return { ...state, isLoading: true };
-    case GET_LIST_WORKER_SUCCESS:
+    case GET_LIST_RECRUITER_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -26,7 +26,7 @@ const listRecipeReducer = (state = initialState, action) => {
         pagination: action.payload.pagination,
         empty: action.payload.data.length === 0,
       };
-    case GET_LIST_WORKER_FAILED:
+    case GET_LIST_RECRUITER_FAILED:
       return {
         ...state,
         isLoading: false,

@@ -8,16 +8,19 @@ const masterReducer = (state, action) => {
   if (action.type === HYDRATE) {
     const nextState = {
       ...state,
-      listWorker: action.payload.listWorker,
+      ...action.payload,
     };
+
     return nextState;
   } else {
     return rootReducers(state, action);
   }
 };
 
+const store = createStore(masterReducer, composeWithDevTools(applyMiddleware(thunk)));
+
 const initStore = () => {
-  return createStore(masterReducer, composeWithDevTools(applyMiddleware(thunk)));
+  return store;
 };
 
 export const wrapper = createWrapper(initStore);
