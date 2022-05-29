@@ -1,12 +1,12 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { register } from "../../redux/actions/auth";
-import { createToast } from "../../utils/createToast";
-import SideAuth from "../../components/molecules/SideAuth";
-import RegisterForm from "../../components/organisms/RegisterForm";
+import { register } from "../../../redux/actions/auth";
+import { createToast } from "../../../utils/createToast";
+import SideAuth from "../../../components/molecules/SideAuth";
+import RegisterForm from "../../../components/organisms/RegisterForm";
 
-const Register = () => {
+const RegisterWorker = () => {
   const router = useRouter();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,4 +73,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterWorker;

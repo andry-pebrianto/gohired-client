@@ -90,7 +90,7 @@ export default function LoginForm({
         </form>
         <p className="text-center text-secondary mt-4">
           Anda belum punya akun?{" "}
-          <Link href="/auth/register">
+          <Link href="/auth/register/worker">
             <a className="text-orange text-decoration-none">Daftar di sini</a>
           </Link>
         </p>

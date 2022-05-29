@@ -15,9 +15,30 @@ export default function Navbar({ token = null, id = null }) {
         </Link>
       </li>
       <li className="nav-item mx-1 my-1">
-        <Link href="/auth/register">
-          <a className={`${styles.register} nav-link`}>Daftar</a>
-        </Link>
+        <div className="dropdown">
+          <button
+            className={`${styles.register} nav-link dropdown-toggle`}
+            type="button"
+            id="registerDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Daftar
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="registerDropdown">
+            <li>
+              <Link href="/auth/register/worker">
+                <a className="dropdown-item">Pekerja</a>
+              </Link>
+            </li>
+            <div className="dropdown-divider"></div>
+            <li>
+              <Link href="/auth/register/recruiter">
+                <a className="dropdown-item">Perekrut</a>
+              </Link>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   );
@@ -59,7 +80,10 @@ export default function Navbar({ token = null, id = null }) {
             </Link>
           </li>
           <li className="nav-item mx-1 my-1">
-            <button className="btn bg-purple text-white nav-link" onClick={logout}>
+            <button
+              className="btn bg-purple text-white nav-link"
+              onClick={logout}
+            >
               Keluar
             </button>
           </li>
