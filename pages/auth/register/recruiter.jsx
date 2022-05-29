@@ -6,7 +6,7 @@ import { createToast } from "../../../utils/createToast";
 import SideAuth from "../../../components/molecules/SideAuth";
 import RegisterForm from "../../../components/organisms/RegisterForm";
 
-const RegisterWorker = () => {
+const RegisterRecruiter = () => {
   const router = useRouter();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +14,8 @@ const RegisterWorker = () => {
     name: "",
     email: "",
     phone: "",
+    companyName: "",
+    position: "",
     password: "",
     passwordConfirm: "",
   });
@@ -28,15 +30,16 @@ const RegisterWorker = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.email || !form.phone || !form.password) {
+    if (!form.name || !form.email || !form.phone || !form.password || !form.companyName || !form.position) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else if (form.password !== form.passwordConfirm) {
       setErrors([{ msg: "Password & Password Confirm not same" }]);
     } else {
+      // belum
       setErrors([]);
       setIsLoading(true);
 
-      const registerStatus = await register(form, setErrors);
+      const registerStatus = await register(form, setErrors, true);
       if (registerStatus) {
         createToast(
           "Register Success, Please Activate Your Account Through Link From Email",
@@ -52,8 +55,8 @@ const RegisterWorker = () => {
   return (
     <>
       <Head>
-        <title>GoHired - Register Worker</title>
-        <meta name="description" content="Register Worker page for GoHired" />
+        <title>GoHired - Register Recruiter</title>
+        <meta name="description" content="Register Recruiter page for GoHired" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -66,6 +69,7 @@ const RegisterWorker = () => {
             onSubmit={onSubmit}
             isLoading={isLoading}
             errors={errors}
+            recruiter
           />
         </div>
       </div>
@@ -73,4 +77,4 @@ const RegisterWorker = () => {
   );
 };
 
-export default RegisterWorker;
+export default RegisterRecruiter;

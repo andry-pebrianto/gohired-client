@@ -11,21 +11,25 @@ export default function RegisterForm({
   onSubmit,
   isLoading,
   errors,
+  recruiter = false,
 }) {
   return (
     <div className={`${styles.auth} ${styles.register} col-sm-7 col-md-6`}>
       <div className={styles.content}>
         <div className="d-sm-none text-center mb-5">
-          <div className="d-flex justify-content-center align-items-center">
-            <div style={{ position: "relative", height: 40, width: 40 }}>
-              <Image src={Logo} layout="fill" alt="GoHired Logo" />
+          <Link href="/">
+            <div className="d-flex justify-content-center align-items-center">
+              <div style={{ position: "relative", height: 40, width: 40 }}>
+                <Image src={Logo} layout="fill" alt="GoHired Logo" />
+              </div>
+              <p className="ms-2 mt-3">GoHired</p>
             </div>
-            <p className="ms-2 mt-3">GoHired</p>
-          </div>
+          </Link>
         </div>
         <h1 className="fs-4 fw-bold mb-3">Hello, Pewpeople</h1>
         <h2 className="fs-6 text-secondary mb-4">
-          Mulai daftar akun baru anda sekarang
+          Mulai daftar akun baru anda untuk segera mencari{" "}
+          {recruiter ? "pekerja profesional" : "pekerjaan impian"}
         </h2>
         <form onSubmit={onSubmit}>
           <div className="mb-3">
@@ -70,6 +74,38 @@ export default function RegisterForm({
               required
             />
           </div>
+          {recruiter && (
+            <>
+              <div className="mb-3">
+                <label htmlFor="companyName" className="form-label">
+                  * Perusahaan
+                </label>
+                <input
+                  type="text"
+                  className="form-control form-control-sm p-3"
+                  id="companyName"
+                  placeholder="Masukkan nama perusahaan"
+                  value={form.companyName}
+                  onChange={onInputChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="position" className="form-label">
+                  * Jabatan
+                </label>
+                <input
+                  type="text"
+                  className="form-control form-control-sm p-3"
+                  id="position"
+                  placeholder="Posisi di perusahaan anda"
+                  value={form.position}
+                  onChange={onInputChange}
+                  required
+                />
+              </div>
+            </>
+          )}
           <PasswordInput
             password={form.password}
             setPassword={onInputChange}

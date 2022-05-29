@@ -26,12 +26,23 @@ export const login = async (data, setErrors) => {
   }
 };
 
-export const register = async (data, setErrors) => {
+export const register = async (data, setErrors, recruiter) => {
   try {
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/register/worker`,
-      data
-    );
+    // jika register sebagai recruiter
+    if (recruiter) {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register/recruiter`,
+        data
+      );
+    }
+
+    // jika register sebagai worker
+    else {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register/worker`,
+        data
+      );
+    }
 
     return true;
   } catch (error) {
@@ -71,7 +82,10 @@ export const forgot = async (data, setErrors) => {
 
 export const reset = async (token, data, setErrors) => {
   try {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset/${token}`, data);
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/reset/${token}`,
+      data
+    );
 
     return true;
   } catch (error) {

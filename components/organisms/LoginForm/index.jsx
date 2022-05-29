@@ -16,12 +16,14 @@ export default function LoginForm({
     <div className={`${styles.auth} ${styles.login} col-sm-7 col-md-6`}>
       <div className={styles.content}>
         <div className="d-sm-none text-center mb-5">
-          <div className="d-flex justify-content-center align-items-center">
-            <div style={{ position: "relative", height: 40, width: 40 }}>
-              <Image src={Logo} layout="fill" alt="GoHired Logo" />
+          <Link href="/">
+            <div className="d-flex justify-content-center align-items-center">
+              <div style={{ position: "relative", height: 40, width: 40 }}>
+                <Image src={Logo} layout="fill" alt="GoHired Logo" />
+              </div>
+              <p className="ms-2 mt-3">GoHired</p>
             </div>
-            <p className="ms-2 mt-3">GoHired</p>
-          </div>
+          </Link>
         </div>
         <h1 className="fs-4 fw-bold mb-3">Hello, Pewpeople</h1>
         <h2 className="fs-6 text-secondary mb-4">
@@ -50,9 +52,7 @@ export default function LoginForm({
           />
           <div className="d-flex justify-content-end mb-3">
             <Link href="/auth/forgot">
-              <a className="text-secondary">
-                Lupa kata sandi?
-              </a>
+              <a className="text-secondary">Lupa kata sandi?</a>
             </Link>
           </div>
           {errors.length > 0 && (
