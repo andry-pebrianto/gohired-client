@@ -7,10 +7,11 @@ export default async function middleware(req) {
   // ketika belum login
   if (!token) {
     if (
+      pathname !== "/" &&
       pathname !== "/auth/login" &&
       pathname !== "/auth/register" &&
       pathname !== "/auth/forgot" &&
-      pathname !== "/"
+      !pathname.match(/\/auth\/reset\/[\w]*/gi)
     ) {
       return NextResponse.redirect(`${origin}/auth/login`);
     }
@@ -18,7 +19,12 @@ export default async function middleware(req) {
 
   // ketika sudah login
   if (token) {
-    if (pathname === "/auth/login" || pathname === "/auth/register" || pathname !== "/auth/forgot") {
+    if (
+      pathname === "/auth/login" ||
+      pathname === "/auth/register" ||
+      pathname === "/auth/forgot" ||
+      pathname.match(/\/auth\/reset\/[\w]*/gi)
+    ) {
       return NextResponse.redirect(`${origin}/`);
     }
   }
