@@ -2,7 +2,7 @@ import {
   GET_LIST_WORKER_FAILED,
   GET_LIST_WORKER_PENDING,
   GET_LIST_WORKER_SUCCESS,
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   isLoading: false,

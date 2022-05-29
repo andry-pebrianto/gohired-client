@@ -33,7 +33,7 @@ const Forgot = () => {
       const forgotStatus = await forgot(form, setErrors);
       if (forgotStatus) {
         createToast("Forgot Password Success, Please Reset Your Password Through Link From Email", "success");
-        router.push("/");
+        router.push("/auth/login");
       }
 
       setIsLoading(false);

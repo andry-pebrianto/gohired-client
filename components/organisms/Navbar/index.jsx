@@ -52,7 +52,7 @@ export default function Navbar({ token = null, id = null }) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Keluar!",
+        confirmButtonText: "Ya, Keluar!",
       }).then((result) => {
         if (result.isConfirmed) {
           document.cookie =
@@ -70,8 +70,13 @@ export default function Navbar({ token = null, id = null }) {
       setNav(
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
           <li className="nav-item mx-1 my-1">
-            <Link href={`/home`}>
+            <Link href={`/home/worker`}>
               <a className={`nav-link`}>List Pekerja</a>
+            </Link>
+          </li>
+          <li className="nav-item mx-1 my-1">
+            <Link href={`/home/recruiter`}>
+              <a className={`nav-link`}>List Perekrut</a>
             </Link>
           </li>
           <li className="nav-item mx-1 my-1">
