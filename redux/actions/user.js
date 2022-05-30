@@ -72,10 +72,10 @@ export const getListRecruiter = (token) => async (dispatch) => {
   }
 };
 
-export const editProfile = async (slug, token, data, setErrors) => {
+export const editProfile = async (id, token, data, setErrors) => {
   try {
     await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${slug}/profile`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}/profile`,
       data,
       {
         headers: {
@@ -100,10 +100,10 @@ export const editProfile = async (slug, token, data, setErrors) => {
   }
 };
 
-export const editPhoto = async (slug, token, data, setErrors) => {
+export const editPhoto = async (id, token, data, setErrors) => {
   try {
     await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${slug}/photo`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}/photo`,
       data,
       {
         headers: { "Content-Type": "multipart/form-data", token },
