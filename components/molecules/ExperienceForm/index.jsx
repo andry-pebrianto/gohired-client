@@ -10,7 +10,7 @@ export default function ExperienceForm({
   return (
     <form className="mb-3 border p-3">
       <div className="mb-3">
-        <label htmlFor="name" className="form-label">
+        <label htmlFor="position" className="form-label">
           Posisi
         </label>
         <input
@@ -23,7 +23,7 @@ export default function ExperienceForm({
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="name" className="form-label">
+        <label htmlFor="company" className="form-label">
           Perusahaan
         </label>
         <input
@@ -38,7 +38,7 @@ export default function ExperienceForm({
       <div className="row">
         <div className="col-6">
           <div className="mb-3">
-            <label htmlFor="name" className="form-label">
+            <label htmlFor="start_date" className="form-label">
               Tanggal mulai
             </label>
             <input
@@ -53,7 +53,7 @@ export default function ExperienceForm({
         </div>
         <div className="col-6">
           <div className="mb-3">
-            <label htmlFor="name" className="form-label">
+            <label htmlFor="end_date" className="form-label">
               Tanggal berakhir
             </label>
             <input
@@ -81,9 +81,9 @@ export default function ExperienceForm({
           rows="5"
         ></textarea>
       </div>
-      <button className="btn bg-purple text-white" onClick={() => deleteInputExp(index)}>
+      <div className="btn bg-purple text-white" onClick={() => deleteInputExp(index)}>
         Delete
-      </button>
+      </div>
     </form>
   );
 }

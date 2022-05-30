@@ -8,6 +8,7 @@ import styles from "../../../styles/Profile.module.css";
 import { editProfile, editPhoto } from "../../../redux/actions/user";
 import { createToast } from "../../../utils/createToast";
 import ExperienceForm from "../../../components/molecules/ExperienceForm";
+import ProjectForm from "../../../components/molecules/ProjectForm";
 
 export async function getServerSideProps(context) {
   try {
@@ -67,6 +68,7 @@ const Edit = ({ data, token, isApiError, apiError }) => {
     linkedin: data.linkedin || "",
     skills: data.skills ? data.skills.join(",") : "",
     experiences: data.experiences || [],
+    projects: data.projects || [],
   });
   const [photo, setPhoto] = useState(null);
 
@@ -136,8 +138,8 @@ const Edit = ({ data, token, isApiError, apiError }) => {
         {
           position: "",
           company: "",
-          startDate: "",
-          endDate: "",
+          start_date: "",
+          end_date: "",
           photo: "",
           description: "",
         },
@@ -166,7 +168,7 @@ const Edit = ({ data, token, isApiError, apiError }) => {
   const deleteInputExp = (index) => {
     const newExp = form.experiences.filter((item, i) => {
       if (i !== index) {
-        return i
+        return item;
       }
     });
 
@@ -174,7 +176,53 @@ const Edit = ({ data, token, isApiError, apiError }) => {
       ...form,
       experiences: newExp,
     });
-  }
+  };
+
+  const addProject = () => {
+    setForm({
+      ...form,
+      projects: [
+        ...form.projects,
+        {
+          title: "",
+          app_type: "",
+          repo: "",
+          photo: "",
+        },
+      ],
+    });
+  };
+
+  const setInputProject = (e, index) => {
+    const newProject = form.projects.map((item, i) => {
+      if (i === index) {
+        return {
+          ...item,
+          [e.target.id]: e.target.value,
+        };
+      }
+
+      return item;
+    });
+
+    setForm({
+      ...form,
+      projects: newProject,
+    });
+  };
+
+  const deleteInputProject = (index) => {
+    const newProject = form.projects.filter((item, i) => {
+      if (i !== index) {
+        return item;
+      }
+    });
+
+    setForm({
+      ...form,
+      projects: newProject,
+    });
+  };
 
   return (
     <>
@@ -499,10 +547,29 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                         </div>
                       ))}
                       <button
-                        className="btn bg-purple text-white"
+                        className="btn bg-purple text-white mb-5"
                         onClick={addExp}
                       >
                         Tambah Pengalaman
+                      </button>
+                      {/* Projects */}
+                      <h5>Portofolio</h5>
+                      <hr />
+                      {form.projects.map((project, index) => (
+                        <div key={data.id + "project" + index}>
+                          <ProjectForm
+                            data={project}
+                            setInputProject={setInputProject}
+                            deleteInputProject={deleteInputProject}
+                            index={index}
+                          />
+                        </div>
+                      ))}
+                      <button
+                        className="btn bg-purple text-white mb-5"
+                        onClick={addProject}
+                      >
+                        Tambah Portofolio
                       </button>
                     </div>
                   </div>

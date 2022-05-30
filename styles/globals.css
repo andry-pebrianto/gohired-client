@@ -29,3 +29,7 @@ body {
 .text-purple {
   color: #5E50A1 !important;
 }
+
+.cursor-pointer:hover {
+  cursor: pointer !important;
+}
