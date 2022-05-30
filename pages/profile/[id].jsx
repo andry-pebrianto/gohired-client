@@ -9,6 +9,7 @@ import {
   GET_DETAIL_USER_SUCCESS,
 } from "../../redux/actions/types";
 import ProfileWorker from "../../components/organisms/ProfileWorker";
+import ProfileRecruiter from "../../components/organisms/ProfileRecruiter";
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -67,14 +68,26 @@ const Profile = ({ id }) => {
         <meta name="description" content="Home page contains list worker" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {detailUser.data.id && (
+      {!detailUser.data.isError ? (
         <>
-          {detailUser.data.level === 1 ? (
-            <h1>Admin</h1>
+          {detailUser.data.id ? (
+            <>
+              {detailUser.data.level === 1 ? (
+                <ProfileRecruiter id={id} detailUser={detailUser} />
+              ) : (
+                <ProfileWorker
+                  id={id}
+                  isPorto={isPorto}
+                  detailUser={detailUser}
+                />
+              )}
+            </>
           ) : (
-            <ProfileWorker id={id} isPorto={isPorto} detailUser={detailUser} />
+            <h1 className="text-center mt-5">User tidak ditemukan.</h1>
           )}
         </>
+      ) : (
+        <h1 className="text-center mt-5">{detailUser.error}</h1>
       )}
       <br />
     </>
