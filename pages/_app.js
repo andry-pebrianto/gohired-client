@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
