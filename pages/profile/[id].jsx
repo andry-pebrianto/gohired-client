@@ -26,8 +26,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         }
       );
 
-      console.log(response);
-
       store.dispatch({
         type: GET_DETAIL_USER_SUCCESS,
         payload: response.data,

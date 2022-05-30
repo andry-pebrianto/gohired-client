@@ -11,6 +11,13 @@ const masterReducer = (state, action) => {
       ...action.payload,
     };
 
+    if (state.listWorker.length){
+      nextState.listWorker = state.listWorker;
+    }
+    if (state.listRecruiter.length){
+      nextState.listRecruiter = state.listRecruiter;
+    }
+
     return nextState;
   } else {
     return rootReducers(state, action);

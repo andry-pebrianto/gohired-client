@@ -71,10 +71,28 @@ const Edit = ({ data, token, isApiError, apiError }) => {
     projects: data.projects || [],
   });
   const [photo, setPhoto] = useState(null);
+  const [formRecruiter, setFormRecruiter] = useState({
+    name: data.name || "",
+    companyName: data.company_name || "",
+    position: data.position || "",
+    address: data.address || "",
+    description: data.description || "",
+    phone: data.phone || "",
+    instagram: data.instagram || "",
+    github: data.github || "",
+    linkedin: data.linkedin || "",
+  });
 
   const onInputChange = (e) => {
     setForm({
       ...form,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const onInputRecruiterChange = (e) => {
+    setFormRecruiter({
+      ...formRecruiter,
       [e.target.id]: e.target.value,
     });
   };
@@ -93,6 +111,27 @@ const Edit = ({ data, token, isApiError, apiError }) => {
       {
         ...form,
         skills: form.skills ? form.skills.trim().split(",") : null,
+      },
+      setErrors
+    );
+    if (editProfileStatus) {
+      createToast("Edit Profile Success", "success");
+      router.push(`/profile/${data.id}`);
+    }
+
+    setIsLoading(false);
+    document.getElementById("close").click();
+  };
+
+  const onSubmitRecruiter = async () => {
+    setErrors([]);
+    setIsLoading(true);
+
+    const editProfileStatus = await editProfile(
+      data.id,
+      token,
+      {
+        ...formRecruiter,
       },
       setErrors
     );
@@ -340,9 +379,9 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                           </small>
                         </div>
                       )}
-                      {data.job_desk && (
+                      {data.position && (
                         <div className="text-secondary">
-                          <small>{data.job_desk}</small>
+                          <small>{data.position}</small>
                         </div>
                       )}
                     </div>
@@ -361,13 +400,25 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                         Loading...
                       </button>
                     ) : (
-                      <button
-                        className="btn mt-3 text-white w-100"
-                        style={{ backgroundColor: "#5E50A1" }}
-                        onClick={onSubmit}
-                      >
-                        Simpan
-                      </button>
+                      <>
+                        {data.level === 1 ? (
+                          <button
+                            className="btn mt-3 text-white w-100"
+                            style={{ backgroundColor: "#5E50A1" }}
+                            onClick={onSubmitRecruiter}
+                          >
+                            Simpan
+                          </button>
+                        ) : (
+                          <button
+                            className="btn mt-3 text-white w-100"
+                            style={{ backgroundColor: "#5E50A1" }}
+                            onClick={onSubmit}
+                          >
+                            Simpan
+                          </button>
+                        )}
+                      </>
                     )}
                     <button
                       className="btn mt-3 w-100"
@@ -376,203 +427,345 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                       Batal
                     </button>
                   </div>
-                  <div className="col-12 col-md-8">
-                    <div
-                      className={`${styles["profile-right"]} w-100 p-3`}
-                      style={{ border: "1px solid gray" }}
-                    >
-                      {errors.length > 0 && (
-                        <div className="alert alert-danger mx-0 py-2">
-                          <ul className="m-0">
-                            {errors.map((error, index) => (
-                              <li key={index}>{error.msg}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      {/* Data diri */}
-                      <h5>Data Diri</h5>
-                      <hr />
-                      <form className="mb-5">
-                        <div className="mb-3">
-                          <label htmlFor="name" className="form-label">
-                            Nama lengkap
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="name"
-                            placeholder="Masukkan nama lengkap"
-                            value={form.name}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="jobDesk" className="form-label">
-                            Job desk
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="jobDesk"
-                            placeholder="Masukkan job desk"
-                            value={form.jobDesk}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="jobType" className="form-label">
-                            Job type
-                          </label>
-                          <select
-                            className="form-select"
-                            id="jobType"
-                            value={form.jobType}
-                            onChange={onInputChange}
-                          >
-                            <option value="Freelance">Freelance</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="Intern">Intern</option>
-                          </select>
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="address" className="form-label">
-                            Alamat
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="address"
-                            placeholder="Masukkan alamat"
-                            value={form.address}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="phone" className="form-label">
-                            No ponsel
-                          </label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            id="phone"
-                            placeholder="Masukkan no ponsel"
-                            value={form.phone}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="phone" className="form-label">
-                            Deskripsi
-                          </label>
-                          <textarea
-                            className="form-control"
-                            id="description"
-                            cols="30"
-                            rows="5"
-                            placeholder="Masukkan deskripsi singkat"
-                            onChange={onInputChange}
-                            value={form.description}
-                          ></textarea>
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="github" className="form-label">
-                            Github
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="github"
-                            placeholder="Masukkan url github"
-                            value={form.github}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="linkedin" className="form-label">
-                            Linkedin
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="linkedin"
-                            placeholder="Masukkan url linkedin"
-                            value={form.linkedin}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="instagram" className="form-label">
-                            Instagram
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="instagram"
-                            placeholder="Masukkan url instagram"
-                            value={form.instagram}
-                            onChange={onInputChange}
-                          />
-                        </div>
-                      </form>
-                      {/* Skills */}
-                      <h5>Skills</h5>
-                      <hr />
-                      <form className="mb-5">
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="skills"
-                            placeholder="Java, Python, Golang"
-                            value={form.skills}
-                            onChange={onInputChange}
-                          />
-                          <div id="skillHelp" className="form-text">
-                            Pisahkan setiap skill menggunakan koma
+                  {data.level === 1 ? (
+                    <div className="col-12 col-md-8">
+                      <div
+                        className={`${styles["profile-right"]} w-100 p-3`}
+                        style={{ border: "1px solid gray" }}
+                      >
+                        {errors.length > 0 && (
+                          <div className="alert alert-danger mx-0 py-2">
+                            <ul className="m-0">
+                              {errors.map((error, index) => (
+                                <li key={index}>{error.msg}</li>
+                              ))}
+                            </ul>
                           </div>
-                        </div>
-                      </form>
-                      {/* Experiences */}
-                      <h5>Pengalaman</h5>
-                      <hr />
-                      {form.experiences.map((exp, index) => (
-                        <div key={data.id + "exp" + index}>
-                          <ExperienceForm
-                            data={exp}
-                            setInputExp={setInputExp}
-                            deleteInputExp={deleteInputExp}
-                            index={index}
-                          />
-                        </div>
-                      ))}
-                      <button
-                        className="btn bg-purple text-white mb-5"
-                        onClick={addExp}
-                      >
-                        Tambah Pengalaman
-                      </button>
-                      {/* Projects */}
-                      <h5>Portofolio</h5>
-                      <hr />
-                      {form.projects.map((project, index) => (
-                        <div key={data.id + "project" + index}>
-                          <ProjectForm
-                            data={project}
-                            setInputProject={setInputProject}
-                            deleteInputProject={deleteInputProject}
-                            index={index}
-                          />
-                        </div>
-                      ))}
-                      <button
-                        className="btn bg-purple text-white mb-5"
-                        onClick={addProject}
-                      >
-                        Tambah Portofolio
-                      </button>
+                        )}
+                        {/* Data diri */}
+                        <h5>Data Diri</h5>
+                        <hr />
+                        <form className="mb-5">
+                          <div className="mb-3">
+                            <label htmlFor="name" className="form-label">
+                              Nama lengkap
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="name"
+                              placeholder="Masukkan nama lengkap"
+                              value={formRecruiter.name}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="companyName" className="form-label">
+                              Nama perusahaan
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="companyName"
+                              placeholder="Masukkan nama perusahaan"
+                              value={formRecruiter.companyName}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="position" className="form-label">
+                              Posisi
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="position"
+                              placeholder="Masukkan alamat"
+                              value={formRecruiter.position}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="address" className="form-label">
+                              Alamat
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="address"
+                              placeholder="Masukkan alamat"
+                              value={formRecruiter.address}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="phone" className="form-label">
+                              No ponsel
+                            </label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="phone"
+                              placeholder="Masukkan no ponsel"
+                              value={formRecruiter.phone}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="phone" className="form-label">
+                              Deskripsi
+                            </label>
+                            <textarea
+                              className="form-control"
+                              id="description"
+                              cols="30"
+                              rows="5"
+                              placeholder="Masukkan deskripsi singkat"
+                              onChange={onInputRecruiterChange}
+                              value={formRecruiter.description}
+                            ></textarea>
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="github" className="form-label">
+                              Github
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="github"
+                              placeholder="Masukkan url github"
+                              value={formRecruiter.github}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="linkedin" className="form-label">
+                              Linkedin
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="linkedin"
+                              placeholder="Masukkan url linkedin"
+                              value={formRecruiter.linkedin}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="instagram" className="form-label">
+                              Instagram
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="instagram"
+                              placeholder="Masukkan url instagram"
+                              value={formRecruiter.instagram}
+                              onChange={onInputRecruiterChange}
+                            />
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="col-12 col-md-8">
+                      <div
+                        className={`${styles["profile-right"]} w-100 p-3`}
+                        style={{ border: "1px solid gray" }}
+                      >
+                        {errors.length > 0 && (
+                          <div className="alert alert-danger mx-0 py-2">
+                            <ul className="m-0">
+                              {errors.map((error, index) => (
+                                <li key={index}>{error.msg}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {/* Data diri */}
+                        <h5>Data Diri</h5>
+                        <hr />
+                        <form className="mb-5">
+                          <div className="mb-3">
+                            <label htmlFor="name" className="form-label">
+                              Nama lengkap
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="name"
+                              placeholder="Masukkan nama lengkap"
+                              value={form.name}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="jobDesk" className="form-label">
+                              Job desk
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="jobDesk"
+                              placeholder="Masukkan job desk"
+                              value={form.jobDesk}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="jobType" className="form-label">
+                              Job type
+                            </label>
+                            <select
+                              className="form-select"
+                              id="jobType"
+                              value={form.jobType}
+                              onChange={onInputChange}
+                            >
+                              <option value="Freelance">Freelance</option>
+                              <option value="Fulltime">Fulltime</option>
+                              <option value="Intern">Intern</option>
+                            </select>
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="address" className="form-label">
+                              Alamat
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="address"
+                              placeholder="Masukkan alamat"
+                              value={form.address}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="phone" className="form-label">
+                              No ponsel
+                            </label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="phone"
+                              placeholder="Masukkan no ponsel"
+                              value={form.phone}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="phone" className="form-label">
+                              Deskripsi
+                            </label>
+                            <textarea
+                              className="form-control"
+                              id="description"
+                              cols="30"
+                              rows="5"
+                              placeholder="Masukkan deskripsi singkat"
+                              onChange={onInputChange}
+                              value={form.description}
+                            ></textarea>
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="github" className="form-label">
+                              Github
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="github"
+                              placeholder="Masukkan url github"
+                              value={form.github}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="linkedin" className="form-label">
+                              Linkedin
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="linkedin"
+                              placeholder="Masukkan url linkedin"
+                              value={form.linkedin}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="instagram" className="form-label">
+                              Instagram
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="instagram"
+                              placeholder="Masukkan url instagram"
+                              value={form.instagram}
+                              onChange={onInputChange}
+                            />
+                          </div>
+                        </form>
+                        {/* Skills */}
+                        <h5>Skills</h5>
+                        <hr />
+                        <form className="mb-5">
+                          <div className="mb-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="skills"
+                              placeholder="Java, Python, Golang"
+                              value={form.skills}
+                              onChange={onInputChange}
+                            />
+                            <div id="skillHelp" className="form-text">
+                              Pisahkan setiap skill menggunakan koma
+                            </div>
+                          </div>
+                        </form>
+                        {/* Experiences */}
+                        <h5>Pengalaman</h5>
+                        <hr />
+                        {form.experiences.map((exp, index) => (
+                          <div key={data.id + "exp" + index}>
+                            <ExperienceForm
+                              data={exp}
+                              setInputExp={setInputExp}
+                              deleteInputExp={deleteInputExp}
+                              index={index}
+                            />
+                          </div>
+                        ))}
+                        <button
+                          className="btn bg-purple text-white mb-5"
+                          onClick={addExp}
+                        >
+                          Tambah Pengalaman
+                        </button>
+                        {/* Projects */}
+                        <h5>Portofolio</h5>
+                        <hr />
+                        {form.projects.map((project, index) => (
+                          <div key={data.id + "project" + index}>
+                            <ProjectForm
+                              data={project}
+                              setInputProject={setInputProject}
+                              deleteInputProject={deleteInputProject}
+                              index={index}
+                            />
+                          </div>
+                        ))}
+                        <button
+                          className="btn bg-purple text-white mb-5"
+                          onClick={addProject}
+                        >
+                          Tambah Portofolio
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </>
               ) : (
                 <h1>User Tidak Ditemukan</h1>
