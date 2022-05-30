@@ -29,3 +29,10 @@
 .tab:hover {
   cursor: pointer;
 }
+
+/* width di bawah 768px */
+@media (max-width: 768px) {
+  .profile-right {
+    margin-top: 20px;
+  }
+}
