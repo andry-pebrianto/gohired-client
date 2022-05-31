@@ -214,7 +214,7 @@ export default function ProfileWorker({ id, isPorto, detailUser }) {
                                 {moment(exp.start_date).format("LL")}
                               </small>{" "}
                               -{" "}
-                              <small>{moment(exp.end_date).format("LL")}</small>
+                              <small>{exp.end_date ? moment(exp.end_date).format("LL") : "Sekarang"}</small>
                             </p>
                             <p>{exp.description}</p>
                           </div>
