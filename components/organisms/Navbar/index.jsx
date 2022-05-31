@@ -100,9 +100,11 @@ export default function Navbar({ token = null, id = null }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent p-3">
       <div className="container">
-        <a className="navbar-brand" href="#" style={{ color: "#5E50A1" }}>
-          GoHired
-        </a>
+        <Link href="/">
+          <a className="navbar-brand" style={{ color: "#5E50A1" }}>
+            GoHired
+          </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
