@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import '@popperjs/core';
 import "bootstrap/dist/css/bootstrap.css";
 import 'react-toastify/dist/ReactToastify.css';
 import React, { useEffect } from "react";
