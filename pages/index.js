@@ -19,6 +19,7 @@ export async function getStaticProps(context) {
 
 const Landing = ({ data }) => {
   console.log(data);
+  console.log(process.env.NEXT_PUBLIC_API_URL);
 
   return (
     <>
