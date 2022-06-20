@@ -16,10 +16,10 @@ export default function Landing2() {
           </div>
         </div>
         <div className={`${styles.side} col-12 col-md-6`}>
-          <h1 className="fw-bold mb-5">
+          <h1 className="fw-bold">
             Kenapa harus mencari tallent di GoHired
           </h1>
-          <ul className="list-unstyled mt-4 text-start">
+          <ul className="list-unstyled mt-3 text-start">
             <li className="mb-3">
               <div className="d-flex">
                 <svg

@@ -33,3 +33,8 @@ body {
 .cursor-pointer:hover {
   cursor: pointer !important;
 }
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
