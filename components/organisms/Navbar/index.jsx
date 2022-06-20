@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 import Swal from "sweetalert2";
+import Logo from "../../../public/img/logo.png";
 import styles from "./Navbar.module.css";
 
 export default function Navbar({ token = null, id = null }) {
@@ -102,7 +104,12 @@ export default function Navbar({ token = null, id = null }) {
       <div className="container">
         <Link href="/">
           <a className="navbar-brand" style={{ color: "#5E50A1" }}>
-            GoHired
+            <div className="d-flex align-items-center">
+              <div style={{ position: "relative", height: 35, width: 35 }}>
+                <Image src={Logo} layout="fill" alt="GoHired Logo" />
+              </div>
+              <span className="ms-2">GoHired</span>
+            </div>
           </a>
         </Link>
         <button
