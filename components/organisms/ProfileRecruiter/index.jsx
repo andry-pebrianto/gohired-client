@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function ProfileRecruiter({ id,  detailUser }) {
   return (
-    <div className="container-fluid p-0">
+    <div className="container-fluid p-0 mb-4">
       <div className={styles["back-purple"]}></div>
       <div className="row mx-auto" style={{ maxWidth: "650px" }}>
         <div className="col-12">
