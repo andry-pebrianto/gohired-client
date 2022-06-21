@@ -47,7 +47,7 @@
   margin-top: 100px;
   margin-bottom: 100px;
   background-color: #FAFBFC;
-  padding: 50px 100px;
+  padding: 30px 50px;
 }
 
 .invitation-container {
@@ -180,6 +180,10 @@
   .skill .side {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .slider-container {
+    padding: 50px 100px;
   }
 
   .footer {
