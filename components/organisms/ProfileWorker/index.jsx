@@ -1,5 +1,7 @@
 import Image from "next/image";
 import moment from "moment";
+import Swal from "sweetalert2";
+import Link from "next/link";
 import {
   FaMapMarkerAlt,
   FaInstagram,
@@ -7,12 +9,96 @@ import {
   FaRegEnvelope,
   FaGithub,
 } from "react-icons/fa";
+import axios from "axios";
 import styles from "../../../styles/Profile.module.css";
-import Link from "next/link";
 
-export default function ProfileWorker({ id, isPorto, detailUser }) {
+export default function ProfileWorker({
+  token,
+  id,
+  level,
+  isPorto,
+  detailUser,
+}) {
+  const deletePorto = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.delete(
+            `${process.env.NEXT_PUBLIC_API_URL}/project/${id}`,
+            {
+              headers: {
+                token,
+              },
+            }
+          );
+
+          Swal.fire(
+            "Deleted!",
+            "Your portofolio has been deleted.",
+            "success"
+          ).then(() => {
+            location.reload();
+          });
+        }
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
+    }
+  };
+
+  const deleteExp = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.delete(
+            `${process.env.NEXT_PUBLIC_API_URL}/experience/${id}`,
+            {
+              headers: {
+                token,
+              },
+            }
+          );
+
+          Swal.fire(
+            "Deleted!",
+            "Your experience has been deleted.",
+            "success"
+          ).then(() => {
+            location.reload();
+          });
+        }
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
+    }
+  };
+
   return (
-    <div className="container-fluid p-0">
+    <div className="container-fluid p-0 mb-4">
       <div className={styles["back-purple"]}></div>
       <div className="row mx-auto" style={{ maxWidth: "1200px" }}>
         <div className="col-12 col-md-4">
@@ -70,6 +156,11 @@ export default function ProfileWorker({ id, isPorto, detailUser }) {
                 </a>
               </Link>
             )}
+            {level === "1" && (
+              <Link href={`/profile/edit/${detailUser.data.id}`}>
+                <a className="btn mt-4 my-2 text-white w-100 bg-purple">Hire</a>
+              </Link>
+            )}
             <h5 className="mt-3">Skills</h5>
             <div className="my-2">
               {detailUser.data.skills && (
@@ -86,24 +177,44 @@ export default function ProfileWorker({ id, isPorto, detailUser }) {
               )}
             </div>
             {detailUser.data.email && (
-              <div className="text-secondary">
+              <a
+                href={`mailto:${detailUser.data.email}`}
+                target="_blank"
+                className="text-secondary d-block"
+                rel="noreferrer"
+              >
                 <FaRegEnvelope /> <small>{detailUser.data.email}</small>
-              </div>
+              </a>
             )}
             {detailUser.data.instagram && (
-              <div className="text-secondary">
+              <a
+                href={detailUser.data.instagram}
+                target="_blank"
+                className="text-secondary d-block"
+                rel="noreferrer"
+              >
                 <FaInstagram /> <small>{detailUser.data.instagram}</small>
-              </div>
+              </a>
             )}
             {detailUser.data.github && (
-              <div className="text-secondary">
+              <a
+                href={detailUser.data.github}
+                target="_blank"
+                className="text-secondary d-block"
+                rel="noreferrer"
+              >
                 <FaGithub /> <small>{detailUser.data.github}</small>
-              </div>
+              </a>
             )}
             {detailUser.data.linkedin && (
-              <div className="text-secondary">
+              <a
+                href={detailUser.data.linkedin}
+                target="_blank"
+                className="text-secondary d-block"
+                rel="noreferrer"
+              >
                 <FaLinkedin /> <small>{detailUser.data.linkedin}</small>
-              </div>
+              </a>
             )}
           </div>
         </div>
@@ -136,7 +247,7 @@ export default function ProfileWorker({ id, isPorto, detailUser }) {
             {isPorto ? (
               <>
                 {detailUser.data.projects.length ? (
-                  <div className="row row-cols-1 row-cols-md-3 g-4 mb-4">
+                  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-4">
                     {detailUser.data.projects.map((project) => (
                       <div key={project.id} className="col">
                         <div className="card">
@@ -166,6 +277,16 @@ export default function ProfileWorker({ id, isPorto, detailUser }) {
                             <p className="card-title text-center">
                               {project.title}
                             </p>
+                            {id === detailUser.data.id && (
+                              <div className="d-flex justify-content-center mt-3">
+                                <button
+                                  onClick={() => deletePorto(project.id)}
+                                  className="btn btn-sm btn-danger"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -214,9 +335,23 @@ export default function ProfileWorker({ id, isPorto, detailUser }) {
                                 {moment(exp.start_date).format("LL")}
                               </small>{" "}
                               -{" "}
-                              <small>{exp.end_date ? moment(exp.end_date).format("LL") : "Sekarang"}</small>
+                              <small>
+                                {exp.end_date
+                                  ? moment(exp.end_date).format("LL")
+                                  : "Sekarang"}
+                              </small>
                             </p>
                             <p>{exp.description}</p>
+                            {id === detailUser.data.id && (
+                              <div className="d-flex mb-3">
+                                <button
+                                  onClick={() => deleteExp(exp.id)}
+                                  className="btn btn-sm btn-danger"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </>

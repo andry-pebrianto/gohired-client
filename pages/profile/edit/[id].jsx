@@ -307,16 +307,18 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                         )}
                       </div>
 
-                      <div className="d-flex justify-content-center mt-3">
-                        <button
-                          type="button"
-                          className="btn bg-purple text-white"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                        >
-                          Change Photo
-                        </button>
-                      </div>
+                      {!isLoading && (
+                        <div className="d-flex justify-content-center mt-3">
+                          <button
+                            type="button"
+                            className="btn bg-purple text-white"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                          >
+                            Change Photo
+                          </button>
+                        </div>
+                      )}
 
                       <div
                         className="modal fade"

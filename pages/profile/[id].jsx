@@ -41,12 +41,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
       props: {
         token: context.req.cookies.token,
         id: context.req.cookies.id,
+        level: context.req.cookies.level,
       },
     };
   }
 );
 
-const Profile = ({ id }) => {
+const Profile = ({ token, id, level }) => {
   const router = useRouter();
   const { detailUser } = useSelector((state) => state);
   const [isPorto, setisPorto] = useState(true);
@@ -74,7 +75,9 @@ const Profile = ({ id }) => {
                 <ProfileRecruiter id={id} detailUser={detailUser} />
               ) : (
                 <ProfileWorker
+                  token={token}
                   id={id}
+                  level={level}
                   isPorto={isPorto}
                   detailUser={detailUser}
                 />
