@@ -1,5 +1,4 @@
 import Image from "next/image";
-import moment from "moment";
 import {
   FaMapMarkerAlt,
   FaInstagram,
