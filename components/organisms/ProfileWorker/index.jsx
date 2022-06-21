@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import Image from "next/image";
 import moment from "moment";
 import Swal from "sweetalert2";
 import Link from "next/link";
+import { useState } from "react";
 import {
   FaMapMarkerAlt,
   FaInstagram,
@@ -19,6 +21,41 @@ export default function ProfileWorker({
   isPorto,
   detailUser,
 }) {
+  const router = useRouter();
+  const [chat, setChat] = useState("");
+
+  const createInitialChat = () => {
+		if (!chat) {
+			Swal.fire({
+				icon: "error",
+				title: "Failed",
+				text: "Chat required!",
+			});
+			return;
+		}
+
+		axios
+			.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/chat`,
+				{
+					sender: id,
+					receiver: detailUser.data.id,
+					chat,
+				},
+				{
+					headers: {
+						token,
+					},
+				}
+			)
+			.then(() => {
+				document.getElementById("close").click();
+
+				router.push("/");
+			})
+			.catch((error) => console.log(error.message));
+	};
+
   const deletePorto = async (id) => {
     try {
       Swal.fire({
@@ -157,9 +194,80 @@ export default function ProfileWorker({
               </Link>
             )}
             {level === "1" && (
-              <Link href={`/profile/edit/${detailUser.data.id}`}>
-                <a className="btn mt-4 my-2 text-white w-100 bg-purple">Hire</a>
-              </Link>
+              <>
+                <button
+                  className="btn mt-4 my-2 text-white w-100 bg-purple"
+                  data-bs-toggle="modal"
+                  data-bs-target="#chatModal"
+                  onClick={() =>
+                    setChat(
+                      `Halo ${detailUser.data.name}, saya tertarik dengan keahlian yang anda miliki dan ingin menawarkan pekerjaan.`
+                    )
+                  }
+                >
+                  Hire
+                </button>
+
+                {/* Chat Modal */}
+                <div
+                  className="modal fade"
+                  id="chatModal"
+                  tabIndex="-1"
+                  aria-labelledby="chatModalLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-lg">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="chatModalLabel">
+                          Send Chat
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                          id="close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        <form>
+                          <div className="mb-3">
+                            <label htmlFor="chatInput" className="form-label">
+                              Chat
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={chat}
+                              onChange={(e) => setChat(e.target.value)}
+                              id="chatInput"
+                              placeholder="Type message"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-success"
+                          onClick={createInitialChat}
+                        >
+                          Send
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Chat Modal */}
+              </>
             )}
             <h5 className="mt-3">Skills</h5>
             <div className="my-2">
