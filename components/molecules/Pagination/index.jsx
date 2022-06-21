@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function Pagination({ pagination, applyFilter }) {
   const tmp = [];
@@ -10,12 +10,13 @@ function Pagination({ pagination, applyFilter }) {
     <nav className="mt-4">
       <ul className="pagination">
         <li
-          className={`page-item ${pagination.currentPage <= 1 && 'disabled'}`}
+          className={`page-item ${pagination.currentPage <= 1 && "disabled"}`}
         >
           <button
             className="page-link"
             type="button"
             onClick={() => applyFilter(pagination.currentPage - 1)}
+            style={{color: "#5E50A1"}}
           >
             Previous
           </button>
@@ -23,7 +24,7 @@ function Pagination({ pagination, applyFilter }) {
         {tmp.map((item, index) => (
           <li
             className={`page-item ${
-              index + 1 === pagination.currentPage && 'active'
+              index + 1 === pagination.currentPage && "active"
             }`}
             key={Math.random(100)}
           >
@@ -31,6 +32,11 @@ function Pagination({ pagination, applyFilter }) {
               onClick={() => applyFilter(index + 1)}
               type="button"
               className="page-link"
+              style={
+                index + 1 === pagination.currentPage
+                  ? { backgroundColor: "#5E50A1", borderColor: "#5E50A1" }
+                  : { backgroundColor: "#fff", color: "#5E50A1" }
+              }
             >
               {index + 1}
             </button>
@@ -38,13 +44,14 @@ function Pagination({ pagination, applyFilter }) {
         ))}
         <li
           className={`page-item ${
-            pagination.currentPage >= pagination.totalPage && 'disabled'
+            pagination.currentPage >= pagination.totalPage && "disabled"
           }`}
         >
           <button
             className="page-link"
             type="button"
             onClick={() => applyFilter(pagination.currentPage + 1)}
+            style={{color: "#5E50A1"}}
           >
             Next
           </button>

@@ -27,7 +27,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
       // set sort query if exist
       if (context.query.sort) {
-        url += `&sort=${context.query.sort}`;
+        url += `&orderBy=${context.query.sort}`;
       }
 
       // set page query if exist
