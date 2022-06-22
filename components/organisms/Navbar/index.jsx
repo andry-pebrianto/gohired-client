@@ -84,6 +84,11 @@ export default function Navbar({ token = null, id = null }) {
             </Link>
           </li>
           <li className="nav-item mx-1 my-1">
+            <Link href={`/chat`}>
+              <a className={`nav-link`}>Chat</a>
+            </Link>
+          </li>
+          <li className="nav-item mx-1 my-1">
             <Link href={`/profile/${id}`}>
               <a className={`nav-link`}>Profile Saya</a>
             </Link>
