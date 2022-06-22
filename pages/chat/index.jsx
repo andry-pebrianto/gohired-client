@@ -65,6 +65,7 @@ const Chat = ({ token, id, level }) => {
     dispatch(getListUserChat(level, token));
   }, [dispatch, level, token]);
 
+  // refresh list message every 'send-message-response' socket triggered
   useEffect(() => {
     const socket = io(process.env.NEXT_PUBLIC_API_URL);
     socket.on("send-message-response", (response) => {
@@ -77,16 +78,19 @@ const Chat = ({ token, id, level }) => {
         ) {
           setListChat(response);
 
-          setTimeout(() => {
-            const elem = document.getElementById("chatMenuMessage");
-            elem.scrollTop = elem.scrollHeight;
-          }, 500);
+          if(!response[0].noScroll) {
+            setTimeout(() => {
+              const elem = document.getElementById("chatMenuMessage");
+              elem.scrollTop = elem.scrollHeight;
+            }, 500);
+          }
         }
       }
     });
     setSocketio(socket);
   }, []);
 
+  // when any user selected for chat
   const selectReceiver = (receiverId) => {
     setListChat([]);
     dispatch(getDetailReceiver(receiverId, token));
@@ -99,6 +103,7 @@ const Chat = ({ token, id, level }) => {
     });
   };
 
+  // function to send message
   const onSendMessage = (e) => {
     e.preventDefault();
 
@@ -122,15 +127,12 @@ const Chat = ({ token, id, level }) => {
       sender_id: id,
       receiver_id: activeReceiver,
       photo: detailUser.data.photo,
-      date: new Date(),
+      created_at: new Date(),
       chat: message,
+      is_deleted: false,
       id: new Date(),
     };
     setListChat([...listChat, payload]);
-    socketio.emit("chat-history", {
-      sender: id,
-      receiver: activeReceiver,
-    });
 
     setMessage("");
 
@@ -140,6 +142,7 @@ const Chat = ({ token, id, level }) => {
     }, 100);
   };
 
+  // function to delete message
   const onDeleteMessage = (chat) => {
     Swal.fire({
       title: "Are you sure?",
@@ -161,6 +164,7 @@ const Chat = ({ token, id, level }) => {
     });
   };
 
+  // function to edit message
   const onEditMessage = (newChat, chat) => {
     if (!newChat) {
       Swal.fire({
@@ -327,7 +331,7 @@ const Chat = ({ token, id, level }) => {
                                             className="text-secondary"
                                             style={{ fontSize: "13px" }}
                                           >
-                                            {moment(chat.date).format("LLL")}
+                                            {moment(chat.created_at).format("LLL")}
                                           </small>
                                         </>
                                       )}
@@ -464,7 +468,7 @@ const Chat = ({ token, id, level }) => {
                                             className="text-light"
                                             style={{ fontSize: "13px" }}
                                           >
-                                            {moment(chat.date).format("LLL")}
+                                            {moment(chat.created_at).format("LLL")}
                                           </small>
                                         </>
                                       )}
