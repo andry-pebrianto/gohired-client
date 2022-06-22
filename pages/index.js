@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Head from "next/head";
 import Landing1 from "../components/organisms/Landing1";
 import Landing2 from "../components/organisms/Landing2";
 import Landing3 from "../components/organisms/Landing3";
@@ -22,6 +23,11 @@ export async function getStaticProps(context) {
 const Landing = ({ data }) => {
   return (
     <>
+      <Head>
+        <title>GoHired - Landing</title>
+        <meta name="description" content="Landing page" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <br />
       <Landing1 />
       <br />

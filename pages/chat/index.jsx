@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import axios from "axios";
@@ -187,6 +188,12 @@ const Chat = ({ token, id, level }) => {
   };
 
   return (
+    <>
+    <Head>
+        <title>GoHired - Chat</title>
+        <meta name="description" content="Chat page" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
     <div className={`${styles.chat} container-lg my-5`}>
       <div className="mb-3 d-md-none">
         <select className="form-select form-select-lg">
@@ -510,6 +517,7 @@ const Chat = ({ token, id, level }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
