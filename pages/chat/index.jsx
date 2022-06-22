@@ -79,7 +79,7 @@ const Chat = ({ token, id, level }) => {
         ) {
           setListChat(response);
 
-          if(!response[0].noScroll) {
+          if (!response[0].noScroll) {
             setTimeout(() => {
               const elem = document.getElementById("chatMenuMessage");
               elem.scrollTop = elem.scrollHeight;
@@ -93,15 +93,19 @@ const Chat = ({ token, id, level }) => {
 
   // when any user selected for chat
   const selectReceiver = (receiverId) => {
-    setListChat([]);
-    dispatch(getDetailReceiver(receiverId, token));
-    setActiveReceiver(receiverId);
-    localStorage.setItem("receiver", receiverId);
-    socketio.emit("join-room", id);
-    socketio.emit("chat-history", {
-      sender: id,
-      receiver: receiverId,
-    });
+    if (receiverId) {
+      setListChat([]);
+      dispatch(getDetailReceiver(receiverId, token));
+      setActiveReceiver(receiverId);
+      localStorage.setItem("receiver", receiverId);
+      socketio.emit("join-room", id);
+      socketio.emit("chat-history", {
+        sender: id,
+        receiver: receiverId,
+      });
+    } else {
+      setActiveReceiver(receiverId);
+    }
   };
 
   // function to send message
@@ -189,334 +193,355 @@ const Chat = ({ token, id, level }) => {
 
   return (
     <>
-    <Head>
+      <Head>
         <title>GoHired - Chat</title>
         <meta name="description" content="Chat page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    <div className={`${styles.chat} container-lg my-5`}>
-      <div className="mb-3 d-md-none">
-        <select className="form-select form-select-lg">
-          <option value="">Chat List</option>
-          <option value="1">Andry Pebrianto Update</option>
-        </select>
-      </div>
-      <div className="row">
-        <div className="col-12 col-md-4 col-lg-3 d-none d-md-block">
-          <div className={`${styles.left} p-4 bg-white rounded border`}>
-            <div
-              className="d-flex align-items-center"
-              style={{ height: "50px" }}
+      <div className={`${styles.chat} container-lg my-5`}>
+        <div className="mb-3 d-md-none">
+          {listUserChat.isLoading ? (
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            <select
+              onChange={(e) => selectReceiver(e.target.value)}
+              className="form-select"
             >
-              <h5 className="fw-bold">Chat List</h5>
-            </div>
-            <hr />
-            <div className="overflow-auto" style={{ height: "70vh" }}>
-              {listUserChat.isLoading ? (
-                <div className="spinner-border" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              ) : (
-                <>
-                  {listUserChat.data.length ? (
-                    <>
-                      {listUserChat.data.map((userChat) => (
-                        <button
-                          key={userChat.id}
-                          className="btn w-100 border-0"
-                          onClick={() => selectReceiver(userChat.id)}
-                        >
-                          <div className="row w-100">
-                            <div className="col-12 col-md-4 col-lg-3">
-                              <div className="d-flex justify-content-center ms-1">
-                                {userChat.photo ? (
-                                  <img
-                                    className={styles["profile-img"]}
-                                    src={`https://drive.google.com/uc?export=view&id=${userChat.photo}`}
-                                    alt="Gambar Profile"
-                                  />
-                                ) : (
-                                  <img
-                                    className={styles["profile-img"]}
-                                    src="https://images227.netlify.app/mernuas/default.jpg"
-                                    alt="Gambar Profile"
-                                  />
-                                )}
-                              </div>
-                            </div>
-                            <div className="col-12 col-md-8 col-lg-9">
-                              <div className="d-flex h-100 align-items-center">
-                                <p className="fw-bold p-0 m-0">
-                                  {userChat.name.split(" ")[0]}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </button>
-                      ))}
-                    </>
-                  ) : (
-                    <h5 className="text-secondary">No history yet</h5>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
+              <option value="">Chat List</option>
+              {listUserChat.data.map((userChat) => (
+                <option key={userChat.id} value={userChat.id}>
+                  {userChat.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
-        <div className="col-12 col-md-8 col-lg-9">
-          <div className={`${styles.right} p-4 bg-white rounded border`}>
-            {activeReceiver ? (
+        <div className="row">
+          <div className="col-12 col-md-4 col-lg-3 d-none d-md-block">
+            <div className={`${styles.left} p-4 bg-white rounded border`}>
               <div
                 className="d-flex align-items-center"
                 style={{ height: "50px" }}
               >
-                {detailReceiver.isLoading ? (
+                <h5 className="fw-bold">Chat List</h5>
+              </div>
+              <hr />
+              <div className="overflow-auto" style={{ height: "70vh" }}>
+                {listUserChat.isLoading ? (
                   <div className="spinner-border" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 ) : (
                   <>
-                    {detailReceiver.data.photo ? (
-                      <img
-                        className={styles["profile-img"]}
-                        src={`https://drive.google.com/uc?export=view&id=${detailReceiver.data.photo}`}
-                        alt="Gambar Profile"
-                      />
+                    {listUserChat.data.length ? (
+                      <>
+                        {listUserChat.data.map((userChat) => (
+                          <button
+                            key={userChat.id}
+                            className="btn w-100 border-0"
+                            onClick={() => selectReceiver(userChat.id)}
+                          >
+                            <div className="row w-100">
+                              <div className="col-12 col-md-4 col-lg-3">
+                                <div className="d-flex justify-content-center ms-1">
+                                  {userChat.photo ? (
+                                    <img
+                                      className={styles["profile-img"]}
+                                      src={`https://drive.google.com/uc?export=view&id=${userChat.photo}`}
+                                      alt="Gambar Profile"
+                                    />
+                                  ) : (
+                                    <img
+                                      className={styles["profile-img"]}
+                                      src="https://images227.netlify.app/mernuas/default.jpg"
+                                      alt="Gambar Profile"
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                              <div className="col-12 col-md-8 col-lg-9">
+                                <div className="d-flex h-100 align-items-center">
+                                  <p className="fw-bold p-0 m-0">
+                                    {userChat.name.split(" ")[0]}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </>
                     ) : (
-                      <img
-                        className={styles["profile-img"]}
-                        src="https://images227.netlify.app/mernuas/default.jpg"
-                        alt="Gambar Profile"
-                      />
+                      <h5 className="text-secondary">No history yet</h5>
                     )}
-                    <h5 className="ms-2 mt-1 fw-bold">
-                      {detailReceiver.data.name}
-                    </h5>
                   </>
                 )}
               </div>
-            ) : (
-              <div
-                className="d-flex align-items-center"
-                style={{ height: "50px" }}
-              >
-                <h5 className="fw-bold">No Chat Selected</h5>
-              </div>
-            )}
-            <hr />
-            <div
-              className="overflow-auto"
-              id="chatMenuMessage"
-              style={{ height: "60vh" }}
-            >
+            </div>
+          </div>
+          <div className="col-12 col-md-8 col-lg-9">
+            <div className={`${styles.right} p-4 bg-white rounded border`}>
               {activeReceiver ? (
-                <>
+                <div
+                  className="d-flex align-items-center"
+                  style={{ height: "50px" }}
+                >
                   {detailReceiver.isLoading ? (
                     <div className="spinner-border" role="status">
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   ) : (
                     <>
-                      {listChat.length ? (
-                        <>
-                          {listChat.map((chat) => (
-                            <div key={chat.id}>
-                              {chat.sender_id === id ? (
-                                <div className="me-1">
-                                  <div className="d-flex justify-content-end align-items-end mt-4">
-                                    <div
-                                      className={`${styles["ballon-right"]} me-2`}
-                                    >
-                                      {chat.is_deleted ? (
-                                        <p className="p-0 m-0 text-secondary">
-                                          <i>This message has been deleted</i>
-                                        </p>
+                      {detailReceiver.data.photo ? (
+                        <img
+                          className={styles["profile-img"]}
+                          src={`https://drive.google.com/uc?export=view&id=${detailReceiver.data.photo}`}
+                          alt="Gambar Profile"
+                        />
+                      ) : (
+                        <img
+                          className={styles["profile-img"]}
+                          src="https://images227.netlify.app/mernuas/default.jpg"
+                          alt="Gambar Profile"
+                        />
+                      )}
+                      <h5 className="ms-2 mt-1 fw-bold">
+                        {detailReceiver.data.name}
+                      </h5>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div
+                  className="d-flex align-items-center"
+                  style={{ height: "50px" }}
+                >
+                  <h5 className="fw-bold">No Chat Selected</h5>
+                </div>
+              )}
+              <hr />
+              <div
+                className="overflow-auto"
+                id="chatMenuMessage"
+                style={{ height: "60vh" }}
+              >
+                {activeReceiver ? (
+                  <>
+                    {detailReceiver.isLoading ? (
+                      <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    ) : (
+                      <>
+                        {listChat.length ? (
+                          <>
+                            {listChat.map((chat) => (
+                              <div key={chat.id}>
+                                {chat.sender_id === id ? (
+                                  <div className="me-1">
+                                    <div className="d-flex justify-content-end align-items-end mt-4">
+                                      <div
+                                        className={`${styles["ballon-right"]} me-2`}
+                                      >
+                                        {chat.is_deleted ? (
+                                          <p className="p-0 m-0 text-secondary">
+                                            <i>This message has been deleted</i>
+                                          </p>
+                                        ) : (
+                                          <>
+                                            <p className="p-0 m-0">
+                                              {chat.chat}
+                                            </p>
+                                            <small
+                                              className="text-secondary"
+                                              style={{ fontSize: "13px" }}
+                                            >
+                                              {moment(chat.created_at).format(
+                                                "LLL"
+                                              )}
+                                            </small>
+                                          </>
+                                        )}
+                                      </div>
+                                      {chat.photo ? (
+                                        <img
+                                          className={styles["profile-img"]}
+                                          src={`https://drive.google.com/uc?export=view&id=${chat.photo}`}
+                                          alt="Gambar Profile"
+                                        />
                                       ) : (
-                                        <>
-                                          <p className="p-0 m-0">{chat.chat}</p>
-                                          <small
-                                            className="text-secondary"
-                                            style={{ fontSize: "13px" }}
-                                          >
-                                            {moment(chat.created_at).format("LLL")}
-                                          </small>
-                                        </>
+                                        <img
+                                          className={styles["profile-img"]}
+                                          src="https://images227.netlify.app/mernuas/default.jpg"
+                                          alt="Gambar Profile"
+                                        />
                                       )}
                                     </div>
-                                    {chat.photo ? (
-                                      <img
-                                        className={styles["profile-img"]}
-                                        src={`https://drive.google.com/uc?export=view&id=${chat.photo}`}
-                                        alt="Gambar Profile"
-                                      />
-                                    ) : (
-                                      <img
-                                        className={styles["profile-img"]}
-                                        src="https://images227.netlify.app/mernuas/default.jpg"
-                                        alt="Gambar Profile"
-                                      />
-                                    )}
-                                  </div>
-                                  {!chat.is_deleted && (
-                                    <div
-                                      className="d-flex justify-content-end w-100"
-                                      style={{ marginTop: "-12px" }}
-                                    >
-                                      <span
-                                        className="text-primary cursor-pointer mt-3 me-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editChat"
-                                        onClick={() => {
-                                          setEditChat(chat.chat);
-                                          setEditChatData(chat);
-                                        }}
-                                      >
-                                        Edit
-                                      </span>
-
-                                      {/* Modal Edit Chat */}
+                                    {!chat.is_deleted && (
                                       <div
-                                        className="modal fade"
-                                        id="editChat"
-                                        tabIndex="-1"
-                                        aria-labelledby="editChatLabel"
-                                        aria-hidden="true"
+                                        className="d-flex justify-content-end w-100"
+                                        style={{ marginTop: "-12px" }}
                                       >
-                                        <div className="modal-dialog modal-dialog-centered">
-                                          <div className="modal-content">
-                                            <div className="modal-header">
-                                              <h5
-                                                className="modal-title"
-                                                id="editChatLabel"
-                                              >
-                                                Edit Chat
-                                              </h5>
-                                              <button
-                                                type="button"
-                                                className="btn-close"
-                                                data-bs-dismiss="modal"
-                                                aria-label="Close"
-                                              />
-                                            </div>
-                                            <div className="modal-body">
-                                              <input
-                                                className="form-control"
-                                                type="text"
-                                                value={editChat}
-                                                onChange={(e) =>
-                                                  setEditChat(e.target.value)
-                                                }
-                                              />
-                                            </div>
-                                            <div className="modal-footer">
-                                              <button
-                                                type="button"
-                                                className="btn btn-secondary"
-                                                data-bs-dismiss="modal"
-                                                id="close"
-                                              >
-                                                Close
-                                              </button>
-                                              <button
-                                                type="button"
-                                                className="btn bg-purple text-white"
-                                                onClick={() =>
-                                                  onEditMessage(
-                                                    editChat,
-                                                    editChatData
-                                                  )
-                                                }
-                                              >
-                                                Save changes
-                                              </button>
+                                        <span
+                                          className="text-primary cursor-pointer mt-3 me-2"
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#editChat"
+                                          onClick={() => {
+                                            setEditChat(chat.chat);
+                                            setEditChatData(chat);
+                                          }}
+                                        >
+                                          Edit
+                                        </span>
+
+                                        {/* Modal Edit Chat */}
+                                        <div
+                                          className="modal fade"
+                                          id="editChat"
+                                          tabIndex="-1"
+                                          aria-labelledby="editChatLabel"
+                                          aria-hidden="true"
+                                        >
+                                          <div className="modal-dialog modal-dialog-centered">
+                                            <div className="modal-content">
+                                              <div className="modal-header">
+                                                <h5
+                                                  className="modal-title"
+                                                  id="editChatLabel"
+                                                >
+                                                  Edit Chat
+                                                </h5>
+                                                <button
+                                                  type="button"
+                                                  className="btn-close"
+                                                  data-bs-dismiss="modal"
+                                                  aria-label="Close"
+                                                />
+                                              </div>
+                                              <div className="modal-body">
+                                                <input
+                                                  className="form-control"
+                                                  type="text"
+                                                  value={editChat}
+                                                  onChange={(e) =>
+                                                    setEditChat(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                              <div className="modal-footer">
+                                                <button
+                                                  type="button"
+                                                  className="btn btn-secondary"
+                                                  data-bs-dismiss="modal"
+                                                  id="close"
+                                                >
+                                                  Close
+                                                </button>
+                                                <button
+                                                  type="button"
+                                                  className="btn bg-purple text-white"
+                                                  onClick={() =>
+                                                    onEditMessage(
+                                                      editChat,
+                                                      editChatData
+                                                    )
+                                                  }
+                                                >
+                                                  Save changes
+                                                </button>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                      {/* Modal Edit Chat */}
+                                        {/* Modal Edit Chat */}
 
-                                      <span
-                                        className="text-danger cursor-pointer mt-3"
-                                        onClick={() => onDeleteMessage(chat)}
-                                        style={{ marginRight: "65px" }}
-                                      >
-                                        Delete
-                                      </span>
-                                    </div>
-                                  )}
-                                </div>
-                              ) : (
-                                <div className="ms-1">
-                                  <div className="d-flex justify-content-start align-items-end mt-4">
-                                    {chat.photo ? (
-                                      <img
-                                        className={styles["profile-img"]}
-                                        src={`https://drive.google.com/uc?export=view&id=${chat.photo}`}
-                                        alt="Gambar Profile"
-                                      />
-                                    ) : (
-                                      <img
-                                        className={styles["profile-img"]}
-                                        src="https://images227.netlify.app/mernuas/default.jpg"
-                                        alt="Gambar Profile"
-                                      />
+                                        <span
+                                          className="text-danger cursor-pointer mt-3"
+                                          onClick={() => onDeleteMessage(chat)}
+                                          style={{ marginRight: "65px" }}
+                                        >
+                                          Delete
+                                        </span>
+                                      </div>
                                     )}
-                                    <div
-                                      className={`${styles["ballon-left"]} ms-2`}
-                                    >
-                                      {chat.is_deleted ? (
-                                        <p className="p-0 m-0 text-light">
-                                          <i>This message has been deleted</i>
-                                        </p>
+                                  </div>
+                                ) : (
+                                  <div className="ms-1">
+                                    <div className="d-flex justify-content-start align-items-end mt-4">
+                                      {chat.photo ? (
+                                        <img
+                                          className={styles["profile-img"]}
+                                          src={`https://drive.google.com/uc?export=view&id=${chat.photo}`}
+                                          alt="Gambar Profile"
+                                        />
                                       ) : (
-                                        <>
-                                          <p className="p-0 m-0">{chat.chat}</p>
-                                          <small
-                                            className="text-light"
-                                            style={{ fontSize: "13px" }}
-                                          >
-                                            {moment(chat.created_at).format("LLL")}
-                                          </small>
-                                        </>
+                                        <img
+                                          className={styles["profile-img"]}
+                                          src="https://images227.netlify.app/mernuas/default.jpg"
+                                          alt="Gambar Profile"
+                                        />
                                       )}
+                                      <div
+                                        className={`${styles["ballon-left"]} ms-2`}
+                                      >
+                                        {chat.is_deleted ? (
+                                          <p className="p-0 m-0 text-light">
+                                            <i>This message has been deleted</i>
+                                          </p>
+                                        ) : (
+                                          <>
+                                            <p className="p-0 m-0">
+                                              {chat.chat}
+                                            </p>
+                                            <small
+                                              className="text-light"
+                                              style={{ fontSize: "13px" }}
+                                            >
+                                              {moment(chat.created_at).format(
+                                                "LLL"
+                                              )}
+                                            </small>
+                                          </>
+                                        )}
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </>
-                      ) : (
-                        <h5 className="text-secondary">No message yet</h5>
-                      )}
-                    </>
-                  )}
-                </>
-              ) : (
-                <h5 className="text-secondary">
-                  Please select a chat to start messaging
-                </h5>
-              )}
-            </div>
-            <hr />
-            <form onSubmit={onSendMessage}>
-              <div className="input-group w-100">
-                <input
-                  className="form-control bg-light border-0"
-                  id="message"
-                  placeholder="Type your message"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-                <button type="submit" className="btn text-white bg-primary">
-                  Send
-                </button>
+                                )}
+                              </div>
+                            ))}
+                          </>
+                        ) : (
+                          <h5 className="text-secondary">No message yet</h5>
+                        )}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <h5 className="text-secondary">
+                    Please select a chat to start messaging
+                  </h5>
+                )}
               </div>
-            </form>
+              <hr />
+              <form onSubmit={onSendMessage}>
+                <div className="input-group w-100">
+                  <input
+                    className="form-control bg-light border-0"
+                    id="message"
+                    placeholder="Type your message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                  <button type="submit" className="btn text-white bg-primary">
+                    Send
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
