@@ -1,0 +1,30 @@
+.chat .left, .chat .right {
+  height: 90vh;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.ballon-left {
+  background-color: #5E51A3;
+  padding: 20px;
+  max-width: 500px;
+  color: white;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.ballon-right {
+  background-color: #f3f1f1;
+  padding: 20px;
+  max-width: 500px;
+  color: black;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+}

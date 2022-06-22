@@ -51,7 +51,7 @@ export default function ProfileWorker({
 			.then(() => {
 				document.getElementById("close").click();
 
-				router.push("/");
+				router.push("/chat");
 			})
 			.catch((error) => console.log(error.message));
 	};

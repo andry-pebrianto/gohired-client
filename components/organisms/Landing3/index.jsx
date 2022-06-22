@@ -2,8 +2,6 @@ import React from "react";
 import styles from "../../../styles/Landing.module.css";
 
 export default function Landing3({ data }) {
-  console.log(data);
-
   return (
     <div className="container-lg">
       <div className={`${styles.skill} row mb-5`}>
