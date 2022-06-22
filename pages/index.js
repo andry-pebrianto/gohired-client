@@ -8,7 +8,7 @@ import LandingInvitation from "../components/organisms/LandingInvitation";
 
 export async function getStaticProps(context) {
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/user/worker/new`
+    `${process.env.NEXT_PUBLIC_API_URL}/skill/static`
   );
 
   return {
@@ -31,8 +31,8 @@ const Landing = ({ data }) => {
       <br />
       <br />
       <br />
-      <Landing3 />
-      <LandingCarousel data={data} />
+      <Landing3 data={data} />
+      <LandingCarousel />
       <LandingInvitation />
     </>
   );

@@ -47,7 +47,7 @@ function CustomPrevArrow(props) {
   );
 }
 
-export default function LandingCarousel({ data }) {
+export default function LandingCarousel() {
   const settings = {
     slidesToShow: 4,
     slidesToScroll: 1,
