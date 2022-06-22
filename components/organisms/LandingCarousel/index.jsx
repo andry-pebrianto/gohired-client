@@ -89,47 +89,188 @@ export default function LandingCarousel({ data }) {
   return (
     <div className={`container-fluid ${styles["slider-container"]}`}>
       <h1 className="fw-bold text-center mb-5">
-        New workers who have joined us
+        Their opinion about GoHired
       </h1>
       <Slider {...settings}>
-        {data.map((item) => (
-          <div key={item.id} className="h-100">
+        <div className="h-100">
+          <div
+            className="shadow p-4 mb-5 bg-body rounded mx-2"
+            style={{ height: "350px" }}
+          >
             <div
-              className="shadow p-4 mb-5 bg-body rounded mx-2"
-              style={{ height: "280px", overflow: "auto" }}
+              style={{
+                position: "relative",
+                height: 120,
+                width: 120,
+              }}
+              className="mx-auto"
             >
-              <div
-                style={{
-                  position: "relative",
-                  height: 120,
-                  width: 120,
-                }}
-                className="mx-auto"
-              >
-                {item.photo ? (
-                  <Image
-                    src={`https://drive.google.com/uc?export=view&id=${item.photo}`}
-                    className="rounded-circle"
-                    layout="fill"
-                    alt="Gambar Profile"
-                  />
-                ) : (
-                  <Image
-                    src="https://images227.netlify.app/mernuas/default.jpg"
-                    className="rounded-circle"
-                    layout="fill"
-                    alt="Gambar Profile"
-                  />
-                )}
-              </div>
-              <p className="text-center mt-2 fw-bold my-0">{item.name}</p>
-              <p className="text-center text-secondary"><small>{item.job_desk}</small></p>
-              <p className="text-center">
-                {item.description}
-              </p>
+              <Image
+                src="https://images227.netlify.app/gohired/bambang.jpeg"
+                className="rounded-circle cover"
+                layout="fill"
+                alt="Gambar Profile"
+              />
             </div>
+            <p className="text-center mt-2 fw-bold my-0">Bambang Hermanto</p>
+            <p className="text-center text-secondary">
+              <small>Web Developer</small>
+            </p>
+            <p className="text-center">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum,
+              aliquam?
+            </p>
           </div>
-        ))}
+        </div>
+        <div className="h-100">
+          <div
+            className="shadow p-4 mb-5 bg-body rounded mx-2"
+            style={{ height: "350px" }}
+          >
+            <div
+              style={{
+                position: "relative",
+                height: 120,
+                width: 120,
+              }}
+              className="mx-auto"
+            >
+              <Image
+                src="https://images227.netlify.app/gohired/alan.jpeg"
+                className="rounded-circle cover"
+                layout="fill"
+                alt="Gambar Profile"
+              />
+            </div>
+            <p className="text-center mt-2 fw-bold my-0">Alan Beker</p>
+            <p className="text-center text-secondary">
+              <small>Mobile Developer</small>
+            </p>
+            <p className="text-center">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+              reprehenderit minus odio?
+            </p>
+          </div>
+        </div>
+        <div className="h-100">
+          <div
+            className="shadow p-4 mb-5 bg-body rounded mx-2"
+            style={{ height: "350px" }}
+          >
+            <div
+              style={{
+                position: "relative",
+                height: 120,
+                width: 120,
+              }}
+              className="mx-auto"
+            >
+              <Image
+                src="https://images227.netlify.app/gohired/heri.jpeg"
+                className="rounded-circle cover"
+                layout="fill"
+                alt="Gambar Profile"
+              />
+            </div>
+            <p className="text-center mt-2 fw-bold my-0">Heri Gunawan</p>
+            <p className="text-center text-secondary">
+              <small>Desktop Developer</small>
+            </p>
+            <p className="text-center">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            </p>
+          </div>
+        </div>
+        <div className="h-100">
+          <div
+            className="shadow p-4 mb-5 bg-body rounded mx-2"
+            style={{ height: "350px" }}
+          >
+            <div
+              style={{
+                position: "relative",
+                height: 120,
+                width: 120,
+              }}
+              className="mx-auto"
+            >
+              <Image
+                src="https://images227.netlify.app/gohired/nori.jpeg"
+                className="rounded-circle cover"
+                layout="fill"
+                alt="Gambar Profile"
+              />
+            </div>
+            <p className="text-center mt-2 fw-bold my-0">Nori Julian</p>
+            <p className="text-center text-secondary">
+              <small>Web Developer</small>
+            </p>
+            <p className="text-center">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Necessitatibus ad officia earum sed delectus.
+            </p>
+          </div>
+        </div>
+        <div className="h-100">
+          <div
+            className="shadow p-4 mb-5 bg-body rounded mx-2"
+            style={{ height: "350px" }}
+          >
+            <div
+              style={{
+                position: "relative",
+                height: 120,
+                width: 120,
+              }}
+              className="mx-auto"
+            >
+              <Image
+                src="https://images227.netlify.app/gohired/hertod.jpg"
+                className="rounded-circle cover"
+                layout="fill"
+                alt="Gambar Profile"
+              />
+            </div>
+            <p className="text-center mt-2 fw-bold my-0">Heroisgod</p>
+            <p className="text-center text-secondary">
+              <small>Web Developer</small>
+            </p>
+            <p className="text-center">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Quibusdam, omnis vero?
+            </p>
+          </div>
+        </div>
+        <div className="h-100">
+          <div
+            className="shadow p-4 mb-5 bg-body rounded mx-2"
+            style={{ height: "350px" }}
+          >
+            <div
+              style={{
+                position: "relative",
+                height: 120,
+                width: 120,
+              }}
+              className="mx-auto"
+            >
+              <Image
+                src="https://images227.netlify.app/gohired/ewing.jpg"
+                className="rounded-circle cover"
+                layout="fill"
+                alt="Gambar Profile"
+              />
+            </div>
+            <p className="text-center mt-2 fw-bold my-0">Ewing 3GP</p>
+            <p className="text-center text-secondary">
+              <small>Mobile Developer</small>
+            </p>
+            <p className="text-center">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Praesentium fugiat exercitationem repudiandae nostrum!
+            </p>
+          </div>
+        </div>
       </Slider>
     </div>
   );
