@@ -58,6 +58,8 @@ const Chat = ({ token, id, level }) => {
   const [message, setMessage] = useState("");
   const [listChat, setListChat] = useState([]);
   const [activeReceiver, setActiveReceiver] = useState("");
+  const [editChat, setEditChat] = useState("");
+  const [editChatData, setEditChatData] = useState(null);
 
   useEffect(() => {
     dispatch(getListUserChat(level, token));
@@ -199,45 +201,53 @@ const Chat = ({ token, id, level }) => {
             </div>
             <hr />
             <div className="overflow-auto" style={{ height: "70vh" }}>
-              {listUserChat.data.length ? (
-                <>
-                  {listUserChat.data.map((userChat) => (
-                    <button
-                      key={userChat.id}
-                      className="btn w-100 border-0"
-                      onClick={() => selectReceiver(userChat.id)}
-                    >
-                      <div className="row w-100">
-                        <div className="col-12 col-md-4 col-lg-3">
-                          <div className="d-flex justify-content-center ms-1">
-                            {userChat.photo ? (
-                              <img
-                                className={styles["profile-img"]}
-                                src={`https://drive.google.com/uc?export=view&id=${userChat.photo}`}
-                                alt="Gambar Profile"
-                              />
-                            ) : (
-                              <img
-                                className={styles["profile-img"]}
-                                src="https://images227.netlify.app/mernuas/default.jpg"
-                                alt="Gambar Profile"
-                              />
-                            )}
-                          </div>
-                        </div>
-                        <div className="col-12 col-md-8 col-lg-9">
-                          <div className="d-flex h-100 align-items-center">
-                            <p className="fw-bold p-0 m-0">
-                              {userChat.name.split(" ")[0]}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </>
+              {listUserChat.isLoading ? (
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               ) : (
-                <h5 className="text-secondary">No history yet</h5>
+                <>
+                  {listUserChat.data.length ? (
+                    <>
+                      {listUserChat.data.map((userChat) => (
+                        <button
+                          key={userChat.id}
+                          className="btn w-100 border-0"
+                          onClick={() => selectReceiver(userChat.id)}
+                        >
+                          <div className="row w-100">
+                            <div className="col-12 col-md-4 col-lg-3">
+                              <div className="d-flex justify-content-center ms-1">
+                                {userChat.photo ? (
+                                  <img
+                                    className={styles["profile-img"]}
+                                    src={`https://drive.google.com/uc?export=view&id=${userChat.photo}`}
+                                    alt="Gambar Profile"
+                                  />
+                                ) : (
+                                  <img
+                                    className={styles["profile-img"]}
+                                    src="https://images227.netlify.app/mernuas/default.jpg"
+                                    alt="Gambar Profile"
+                                  />
+                                )}
+                              </div>
+                            </div>
+                            <div className="col-12 col-md-8 col-lg-9">
+                              <div className="d-flex h-100 align-items-center">
+                                <p className="fw-bold p-0 m-0">
+                                  {userChat.name.split(" ")[0]}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </>
+                  ) : (
+                    <h5 className="text-secondary">No history yet</h5>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -306,39 +316,158 @@ const Chat = ({ token, id, level }) => {
                                     <div
                                       className={`${styles["ballon-right"]} me-2`}
                                     >
-                                      <p className="p-0 m-0">{chat.chat}</p>
-                                      <small
-                                        className="text-secondary"
-                                        style={{ fontSize: "13px" }}
-                                      >
-                                        {moment(chat.date).format("LLL")}
-                                      </small>
+                                      {chat.is_deleted ? (
+                                        <p className="p-0 m-0 text-secondary">
+                                          <i>This message has been deleted</i>
+                                        </p>
+                                      ) : (
+                                        <>
+                                          <p className="p-0 m-0">{chat.chat}</p>
+                                          <small
+                                            className="text-secondary"
+                                            style={{ fontSize: "13px" }}
+                                          >
+                                            {moment(chat.date).format("LLL")}
+                                          </small>
+                                        </>
+                                      )}
                                     </div>
-                                    <img
-                                      className={styles["profile-img"]}
-                                      src="https://images227.netlify.app/mernuas/default.jpg"
-                                      alt="Gambar Profile"
-                                    />
+                                    {chat.photo ? (
+                                      <img
+                                        className={styles["profile-img"]}
+                                        src={`https://drive.google.com/uc?export=view&id=${chat.photo}`}
+                                        alt="Gambar Profile"
+                                      />
+                                    ) : (
+                                      <img
+                                        className={styles["profile-img"]}
+                                        src="https://images227.netlify.app/mernuas/default.jpg"
+                                        alt="Gambar Profile"
+                                      />
+                                    )}
                                   </div>
+                                  {!chat.is_deleted && (
+                                    <div
+                                      className="d-flex justify-content-end w-100"
+                                      style={{ marginTop: "-12px" }}
+                                    >
+                                      <span
+                                        className="text-primary cursor-pointer mt-3 me-2"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editChat"
+                                        onClick={() => {
+                                          setEditChat(chat.chat);
+                                          setEditChatData(chat);
+                                        }}
+                                      >
+                                        Edit
+                                      </span>
+
+                                      {/* Modal Edit Chat */}
+                                      <div
+                                        className="modal fade"
+                                        id="editChat"
+                                        tabIndex="-1"
+                                        aria-labelledby="editChatLabel"
+                                        aria-hidden="true"
+                                      >
+                                        <div className="modal-dialog modal-dialog-centered">
+                                          <div className="modal-content">
+                                            <div className="modal-header">
+                                              <h5
+                                                className="modal-title"
+                                                id="editChatLabel"
+                                              >
+                                                Edit Chat
+                                              </h5>
+                                              <button
+                                                type="button"
+                                                className="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                              />
+                                            </div>
+                                            <div className="modal-body">
+                                              <input
+                                                className="form-control"
+                                                type="text"
+                                                value={editChat}
+                                                onChange={(e) =>
+                                                  setEditChat(e.target.value)
+                                                }
+                                              />
+                                            </div>
+                                            <div className="modal-footer">
+                                              <button
+                                                type="button"
+                                                className="btn btn-secondary"
+                                                data-bs-dismiss="modal"
+                                                id="close"
+                                              >
+                                                Close
+                                              </button>
+                                              <button
+                                                type="button"
+                                                className="btn bg-purple text-white"
+                                                onClick={() =>
+                                                  onEditMessage(
+                                                    editChat,
+                                                    editChatData
+                                                  )
+                                                }
+                                              >
+                                                Save changes
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      {/* Modal Edit Chat */}
+
+                                      <span
+                                        className="text-danger cursor-pointer mt-3"
+                                        onClick={() => onDeleteMessage(chat)}
+                                        style={{ marginRight: "65px" }}
+                                      >
+                                        Delete
+                                      </span>
+                                    </div>
+                                  )}
                                 </div>
                               ) : (
                                 <div className="ms-1">
                                   <div className="d-flex justify-content-start align-items-end mt-4">
-                                    <img
-                                      className={styles["profile-img"]}
-                                      src="https://images227.netlify.app/mernuas/default.jpg"
-                                      alt="Gambar Profile"
-                                    />
+                                    {chat.photo ? (
+                                      <img
+                                        className={styles["profile-img"]}
+                                        src={`https://drive.google.com/uc?export=view&id=${chat.photo}`}
+                                        alt="Gambar Profile"
+                                      />
+                                    ) : (
+                                      <img
+                                        className={styles["profile-img"]}
+                                        src="https://images227.netlify.app/mernuas/default.jpg"
+                                        alt="Gambar Profile"
+                                      />
+                                    )}
                                     <div
                                       className={`${styles["ballon-left"]} ms-2`}
                                     >
-                                      <p className="p-0 m-0">{chat.chat}</p>
-                                      <small
-                                        className="text-light"
-                                        style={{ fontSize: "13px" }}
-                                      >
-                                        {moment(chat.date).format("LLL")}
-                                      </small>
+                                      {chat.is_deleted ? (
+                                        <p className="p-0 m-0 text-light">
+                                          <i>This message has been deleted</i>
+                                        </p>
+                                      ) : (
+                                        <>
+                                          <p className="p-0 m-0">{chat.chat}</p>
+                                          <small
+                                            className="text-light"
+                                            style={{ fontSize: "13px" }}
+                                          >
+                                            {moment(chat.date).format("LLL")}
+                                          </small>
+                                        </>
+                                      )}
                                     </div>
                                   </div>
                                 </div>
