@@ -1,34 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <img src="./readme/logo.jpeg" width="200px" height="200px" />
+</div>
+<h3 align="center">GoHired</h3>
+<p align="center">
+  <a href="https://gohired.vercel.app/">View Demo</a>
+  ·
+  <a href="https://github.com/andry-pebrianto/gohired-client/issues">Report Bug</a>
+</p>
 
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+GoHired is a web chat application to search for workers and/or jobs with the features of registering, logging in, forgot password, recruiting workers, and realtime chat. This web application is built using ReactJS, ExpressJS, PostgreSQL, and WebSocket.
+
+### Technology Used
+- [NextJS](https://nextjs.org/)
+- [Redux](https://redux.js.org/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Socket.IO](https://socket.io/)
+- [Axios](https://github.com/axios/axios)
+- [Moment](https://momentjs.com/)
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-First, run the development server:
+### Installation
+- Clone This Repository
+
+`git clone https://github.com/andry-pebrianto/gohired-client.git`
+
+- Install Module
+
+`npm install`
+
+- Setting .env.local
 
 ```bash
-npm run dev
-# or
-yarn dev
+NEXT_PUBLIC_APP_NAME=YOUR_APP_NAME
+NEXT_PUBLIC_NODE_ENV=YOUR_CURRENT_ENVIRONMENT
+NEXT_PUBLIC_API_URL=YOUR_API_URL
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Executing program
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Run this project with `npm run start`.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<!-- SCREENSHOT -->
+## Screenshot
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Login
+<img src="./readme/ss-login.webp" />
 
-## Learn More
+### Register
+<img src="./readme/ss-register.webp" />
 
-To learn more about Next.js, take a look at the following resources:
+### Home
+<img src="./readme/ss-home.webp" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Edit Profile
+<img src="./readme/ss-edit-profile.webp" />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Chat
+<img src="./readme/ss-chat.webp" />
 
-## Deploy on Vercel
+### Detail User
+<img src="./readme/ss-detail-user.webp" />
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<!-- RELATED PROJECT -->
+## Related Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Nibiru Chat API](https://github.com/andry-pebrianto/nibiruchat-api)
+- [Nibiru Chat Demo](https://nibiruchat.netlify.app/)
+
+<!-- CONTACT INFO -->
+## Contact Info
+
+Contributors names and contact info:
+
+1. Andry Pebrianto
+
+- [Linkedin](https://www.linkedin.com/in/andry-pebrianto)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
