@@ -9,7 +9,7 @@ const nextConfig = {
       "ankasa-ticket.herokuapp.com",
       "https://drive.google.com/drive/u/0/folders/1FySMSQU2Y0qECTQbNOVMTto5nQA0Ex6a",
     ],
-    formats: ["image/webp", "image/webp", "image/webp", "image/webp"],
+    formats: ["image/webp", "image/png", "image/jpg", "image/jpeg"],
   },
 };
 
