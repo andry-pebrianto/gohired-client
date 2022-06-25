@@ -51,26 +51,38 @@ NEXT_PUBLIC_API_URL=YOUR_API_URL
 ### Login
 <img src="./readme/ss-login.webp" />
 
-### Register
-<img src="./readme/ss-register.webp" />
+### Register Worker
+<img src="./readme/ss-register-worker.webp" />
 
-### Home
-<img src="./readme/ss-home.webp" />
+### Register Recruiter
+<img src="./readme/ss-register-recruiter.webp" />
+
+### Landing
+<img src="./readme/ss-landing.webp" />
+
+### List Worker
+<img src="./readme/ss-list-worker.webp" />
+
+### List Recruiter
+<img src="./readme/ss-list-recruiter.webp" />
+
+### Worker Profile
+<img src="./readme/ss-my-profile.webp" />
 
 ### Edit Profile
 <img src="./readme/ss-edit-profile.webp" />
 
+### Recruiter Profile
+<img src="./readme/ss-recruiter-profile.webp" />
+
 ### Chat
 <img src="./readme/ss-chat.webp" />
-
-### Detail User
-<img src="./readme/ss-detail-user.webp" />
 
 <!-- RELATED PROJECT -->
 ## Related Project
 
-- [Nibiru Chat API](https://github.com/andry-pebrianto/nibiruchat-api)
-- [Nibiru Chat Demo](https://nibiruchat.netlify.app/)
+- [GoHired API](https://github.com/andry-pebrianto/gohired-api)
+- [GoHired Demo](https://gohired.vercel.app/)
 
 <!-- CONTACT INFO -->
 ## Contact Info
