@@ -18,8 +18,8 @@ GoHired is a web chat application to search for workers and/or jobs with the fea
 - [Redux](https://redux.js.org/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Socket.IO](https://socket.io/)
-- [Axios](https://github.com/axios/axios)
 - [Moment](https://momentjs.com/)
+- [Axios](https://github.com/axios/axios)
 
 <!-- GETTING STARTED -->
 ## Getting Started
