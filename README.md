@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./readme/logo.jpeg" width="200px" height="200px" />
+  <img src="./readme/logo.jpeg" width="160px" height="160px" />
 </div>
 <h3 align="center">GoHired</h3>
 <p align="center">
