@@ -43,7 +43,7 @@ NEXT_PUBLIC_API_URL=YOUR_API_URL
 
 ### Executing program
 
-- Run this project with `npm run start`.
+- Run this project with `npm run dev`.
 
 <!-- SCREENSHOT -->
 ## Screenshot
