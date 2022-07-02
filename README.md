@@ -11,7 +11,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-GoHired is a web chat application to search for workers and/or jobs with the features of registering, logging in, forgot password, recruiting workers, and realtime chat. This web application is built using ReactJS, ExpressJS, PostgreSQL, and WebSocket.
+GoHired is a web application to search for workers and/or jobs with the features of registering, logging in, forgot password, recruiting workers, and realtime chat. This web application is built using ReactJS, ExpressJS, PostgreSQL, and WebSocket.
 
 ### Technology Used
 - [NextJS](https://nextjs.org/)
