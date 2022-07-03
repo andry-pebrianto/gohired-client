@@ -514,7 +514,7 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                             />
                           </div>
                           <div className="mb-3">
-                            <label htmlFor="phone" className="form-label">
+                            <label htmlFor="description" className="form-label">
                               Deskripsi
                             </label>
                             <textarea
@@ -647,7 +647,7 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                               No ponsel
                             </label>
                             <input
-                              type="number"
+                              type="text"
                               className="form-control"
                               id="phone"
                               placeholder="Masukkan no ponsel"
@@ -656,7 +656,7 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                             />
                           </div>
                           <div className="mb-3">
-                            <label htmlFor="phone" className="form-label">
+                            <label htmlFor="description" className="form-label">
                               Deskripsi
                             </label>
                             <textarea
