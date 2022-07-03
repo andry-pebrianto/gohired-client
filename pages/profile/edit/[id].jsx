@@ -505,7 +505,7 @@ const Edit = ({ data, token, isApiError, apiError }) => {
                               No ponsel
                             </label>
                             <input
-                              type="number"
+                              type="text"
                               className="form-control"
                               id="phone"
                               placeholder="Masukkan no ponsel"
