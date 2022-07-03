@@ -8,6 +8,7 @@ const nextConfig = {
       "drive.google.com",
       "ankasa-ticket.herokuapp.com",
       "drive.google.com/drive/u/0/folders/1FySMSQU2Y0qECTQbNOVMTto5nQA0Ex6a",
+      "gohired.vercel.app",
     ],
   },
 };
