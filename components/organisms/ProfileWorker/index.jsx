@@ -153,6 +153,7 @@ export default function ProfileWorker({
                   className="rounded-circle"
                   layout="fill"
                   alt="Gambar Profile"
+                  unoptimized={true}
                 />
               ) : (
                 <Image
@@ -372,6 +373,7 @@ export default function ProfileWorker({
                                 src={`https://drive.google.com/uc?export=view&id=${project.photo}`}
                                 layout="fill"
                                 alt="Gambar Profile"
+                                unoptimized={true}
                               />
                             ) : (
                               <Image
@@ -425,6 +427,7 @@ export default function ProfileWorker({
                                   src={`https://drive.google.com/uc?export=view&id=${exp.photo}`}
                                   layout="fill"
                                   alt="Gambar Profile"
+                                  unoptimized={true}
                                 />
                               ) : (
                                 <Image

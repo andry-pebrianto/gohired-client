@@ -169,6 +169,7 @@ const ListWorker = () => {
                                   className="rounded-circle"
                                   layout="fill"
                                   alt="Gambar Profile"
+                                  unoptimized={true}
                                 />
                               ) : (
                                 <Image

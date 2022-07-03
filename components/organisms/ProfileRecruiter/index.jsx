@@ -29,6 +29,7 @@ export default function ProfileRecruiter({ id,  detailUser }) {
                   className="rounded-circle"
                   layout="fill"
                   alt="Gambar Profile"
+                  unoptimized={true}
                 />
               ) : (
                 <Image
