@@ -48,35 +48,38 @@ NEXT_PUBLIC_API_URL=YOUR_API_URL
 <!-- SCREENSHOT -->
 ## Screenshot
 
-### Login
-<img src="./readme/ss-login.webp" />
+### Landing
+<img src="./readme/1. ss-landing.png" />
 
 ### Register Worker
-<img src="./readme/ss-register-worker.webp" />
+<img src="./readme/2. ss-register-worker.jpg" />
 
 ### Register Recruiter
-<img src="./readme/ss-register-recruiter.webp" />
+<img src="./readme/3. ss-register-recruiter.jpg" />
 
-### Landing
-<img src="./readme/ss-landing.webp" />
+### Login
+<img src="./readme/4. ss-login.jpg" />
 
 ### List Worker
-<img src="./readme/ss-list-worker.webp" />
+<img src="./readme/5. ss-list-worker.jpg" />
 
 ### List Recruiter
-<img src="./readme/ss-list-recruiter.webp" />
-
-### Worker Profile
-<img src="./readme/ss-my-profile.webp" />
-
-### Edit Profile
-<img src="./readme/ss-edit-profile.webp" />
-
-### Recruiter Profile
-<img src="./readme/ss-recruiter-profile.webp" />
+<img src="./readme/6. ss-list-recruiter.jpg" />
 
 ### Chat
-<img src="./readme/ss-chat.webp" />
+<img src="./readme/7. ss-chat.jpg" />
+
+### Worker Profile
+<img src="./readme/8. ss-profile-worker.jpg" />
+
+### Recruiter Profile
+<img src="./readme/9. ss-profile-recruiter.jpg" />
+
+### Edit Worker Profile
+<img src="./readme/10. ss-edit-profile-worker.jpg" />
+
+### Edit Recruiter Profile
+<img src="./readme/11. ss-edit-profile-recruiter.jpg" />
 
 <!-- RELATED PROJECT -->
 ## Related Project
