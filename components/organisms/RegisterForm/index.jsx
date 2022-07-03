@@ -65,7 +65,7 @@ export default function RegisterForm({
               * No handphone
             </label>
             <input
-              type="number"
+              type="text"
               className="form-control form-control-sm p-3"
               id="phone"
               placeholder="Masukkan no handphone"
