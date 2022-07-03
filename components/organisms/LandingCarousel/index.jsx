@@ -267,7 +267,7 @@ export default function LandingCarousel() {
             </p>
             <p className="text-center">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium fugiat exercitationem repudiandae nostrum!
+              Praesentium fugiat nostrum!
             </p>
           </div>
         </div>
