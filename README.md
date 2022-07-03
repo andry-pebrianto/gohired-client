@@ -18,8 +18,8 @@ GoHired is a web application to search for workers and/or jobs with the features
 - [Redux](https://redux.js.org/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Socket.IO](https://socket.io/)
-- [Moment](https://momentjs.com/)
 - [Axios](https://github.com/axios/axios)
+- [Moment](https://momentjs.com/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
