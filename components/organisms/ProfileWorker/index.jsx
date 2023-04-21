@@ -377,7 +377,7 @@ export default function ProfileWorker({
                               />
                             ) : (
                               <Image
-                                src="https://ankasa-ticket.herokuapp.com/ticket.jpg"
+                                src="https://koleksi-resep-api.onrender.com/photo/food-default.jpg"
                                 layout="fill"
                                 alt="Gambar Profile"
                               />
@@ -431,7 +431,7 @@ export default function ProfileWorker({
                                 />
                               ) : (
                                 <Image
-                                  src="https://ankasa-ticket.herokuapp.com/ticket.jpg"
+                                  src="https://koleksi-resep-api.onrender.com/photo/food-default.jpg"
                                   layout="fill"
                                   alt="Gambar Profile"
                                 />
