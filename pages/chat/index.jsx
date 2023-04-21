@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import Swal from "sweetalert2";
 import moment from "moment";
+import { v4 as uuidv4 } from 'uuid';
 import { wrapper } from "../../redux/store";
 import {
   GET_DETAIL_USER_FAILED,
@@ -121,10 +122,13 @@ const Chat = ({ token, id, level }) => {
       return;
     }
 
+    const chatId = uuidv4();
+
     const data = {
       sender: id,
       receiver: activeReceiver,
       chat: message,
+      id: chatId,
     };
     socketio.emit("send-message", data);
 
@@ -135,7 +139,7 @@ const Chat = ({ token, id, level }) => {
       created_at: new Date(),
       chat: message,
       is_deleted: false,
-      id: new Date(),
+      id: chatId,
     };
     setListChat([...listChat, payload]);
 
