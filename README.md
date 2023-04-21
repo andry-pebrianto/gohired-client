@@ -96,6 +96,6 @@ Contributors names and contact info:
 
 - [Linkedin](https://www.linkedin.com/in/andry-pebrianto)
 
-## License
+## License 
 
 This project is licensed under the MIT License - see the LICENSE file for details
