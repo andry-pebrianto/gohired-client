@@ -29,7 +29,7 @@ export default function ProjectForm({
         <select
           className="form-select"
           id="jobType"
-          value={data.job_type}
+          value={data.jobType}
           onChange={(e) => setInputProject(e, index)}
         >
           <option value="Mobile">Mobile</option>
